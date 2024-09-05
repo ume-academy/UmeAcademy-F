@@ -1,11 +1,4 @@
-// ** Image banner
-export const bannerImg = {
-    image: '../../../assets/images/client/HomePage/banner.jpg'
-}
-
-// ** Footer
-//! Màu background
-const backgroundFooterColor = 'bg-[#AC5E07]';
+{/* <===== Đây là nơi lưu trữ những hằng phía client =====>*/}
 
 // Logo Header
 export const logoClient = 'https://www.wallpaperflare.com/static/765/775/653/errors-minimalism-typography-x-wallpaper.jpg'     
@@ -22,3 +15,4 @@ export const navigationCategory = [
 // ** Footer
 // ! Màu background
 export const backgroundFooterColor = 'bg-[#AC5E07]';
+
