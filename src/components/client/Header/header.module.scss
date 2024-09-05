@@ -1,0 +1,11 @@
+.border_teacher {
+  border: 2px solid transparent;
+  border-radius: 6px; /* Đảm bảo bo góc giống Tailwind's rounded-md */
+  background-image: linear-gradient(white, white), linear-gradient(to right, rgba(204, 221, 249, 1), rgba(193, 183, 255, 1));
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.backGR_teacher {
+    background-color: rgba(234, 241, 255, 1);
+}
