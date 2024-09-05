@@ -32,10 +32,10 @@ function App() {
           </Route>
 
           {/* <===== Layout client =====>*/}
-          <Route index element={<Hihi />} >
-            
-          </Route>
 
+          <Route path='/' element={<Layout_Client />} >
+          </Route>
+          
         </Routes>
 
     </>
