@@ -1,5 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
   darkMode: ["class"],
   content: [
@@ -32,7 +33,6 @@ module.exports = {
         FontDesc: ['FontDesc', 'sans-serif'],  // Font Light
       },
       colors: {
-        //for Admin
         current: 'currentColor',
         transparent: 'transparent',
         white: '#FFFFFF',
