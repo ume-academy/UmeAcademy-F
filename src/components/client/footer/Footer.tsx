@@ -1,3 +1,4 @@
+
 import { FacebookOutlined, InstagramOutlined, TwitterOutlined, YoutubeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { backgroundFooterColor } from '../../../contants/client';
@@ -67,5 +68,6 @@ const Footer = () => {
         </>
     )
 }
+
 
 export default Footer

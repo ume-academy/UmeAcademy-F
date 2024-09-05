@@ -1,3 +1,4 @@
+
 import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.scss';
@@ -32,8 +33,7 @@ function App() {
           </Route>
 
           {/* <===== Layout client =====>*/}
-          <Route path='/' element={<Layout_Client />} >
-          </Route>
+          <Route path='/' element={<Layout_Client />} />
           
         </Routes>
 
