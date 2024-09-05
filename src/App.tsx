@@ -32,8 +32,10 @@ function App() {
           </Route>
 
           {/* <===== Layout client =====>*/}
-          <Route index element={<Hihi />} />
-          
+          <Route index element={<Hihi />} >
+            
+          </Route>
+
         </Routes>
 
     </>
