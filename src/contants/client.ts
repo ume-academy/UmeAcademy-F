@@ -1,5 +1,3 @@
-{/* <===== Đây là nơi lưu trữ những hằng phía client =====>*/ }
-
 // ** Image banner
 export const bannerImg = {
     image: '../../../assets/images/client/HomePage/banner.jpg'
@@ -24,6 +22,3 @@ export const navigationCategory = [
 // ** Footer
 // ! Màu background
 export const backgroundFooterColor = 'bg-[#AC5E07]';
-
-
-
