@@ -12,7 +12,4 @@ export const navigationCategory = [
     {id: 5,title: "Kinh doanh"}
 ]
 
-// ** Footer
-// ! Màu background
-export const backgroundFooterColor = 'bg-[#AC5E07]';
 

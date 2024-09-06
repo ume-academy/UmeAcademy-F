@@ -1,12 +1,11 @@
 
 import { FacebookOutlined, InstagramOutlined, TwitterOutlined, YoutubeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import { backgroundFooterColor } from '../../../contants/client';
-
+import style from './footer.module.scss'
 const Footer = () => {
     return (
         <>
-            <footer className={`${backgroundFooterColor} py-3`}>
+            <footer className={`${style['innerFooter']} py-3`}>
                 <div className="container mx-auto">
                     <div className="flex flex-col">
                         <div className="top">
