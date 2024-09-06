@@ -1,0 +1,30 @@
+.icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.25rem;
+}
+
+.btn {
+  width: 124px;
+  height: 52px;
+  background: linear-gradient(90deg, #c67d39, #ac5e07);
+  border-radius: 16px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background: linear-gradient(90deg, #ac5e07, #c67d39);
+  }
+}
+.input {
+  padding-left: 2.5rem;
+  width: 100%;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background-color: #f0edff;
+  border-radius: 1rem;
+}

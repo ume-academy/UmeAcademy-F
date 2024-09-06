@@ -13,3 +13,6 @@ export const navigationCategory = [
 ]
 
 
+// img Register
+export const bannerRegister = './src/assets/images/client/Register/banner-register.jpg';
+export const google = './src/assets/images/client/Register/google.png';

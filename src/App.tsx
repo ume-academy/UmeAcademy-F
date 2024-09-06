@@ -7,6 +7,7 @@ import Layout_Client from './layouts/Layout_Client';
 import Dashboard from './pages/admin/Dashboard/Dashboard';
 import List_Product from './pages/admin/Products/List_Product';
 import Home_Page from './pages/client/Home_Page/Home_Page';
+import Register from './pages/client/Register/Register';
 
 function App() {
 
@@ -35,6 +36,7 @@ function App() {
           <Route path='/' element={<Layout_Client />} >
               <Route index element={<Home_Page />} />
           </Route>
+          <Route path='/register' element={<Register />} />
 
       </Routes>
     </>
