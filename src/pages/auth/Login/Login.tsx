@@ -1,13 +1,8 @@
-import React from 'react'
-import banner from '../../../assets/images/client/LoginPage/banner_login.jpg';
 import { Link } from 'react-router-dom';
 import styles from './Login.module.scss';
-import { GoogleOutlined } from '@ant-design/icons';
 
 // images
-import userIcon from '../../../assets/images/client/LoginPage/icon_user.png';
-import lockIcon from '../../../assets/images/client/LoginPage/icon_lock.png';
-import googleLogo from '../../../assets/images/client/LoginPage/google_logo.png';
+import { bannerLogin, googleLogo, lockIcon, userIcon } from '../../../contants/client';
 
 
 type Props = {}
@@ -15,10 +10,10 @@ type Props = {}
 const Login = (props: Props) => {
     return (
         <>
-            <div className="">
-                <div className="container mx-auto">
-                    <div className="flex space-x-9">
-                        <div className="left flex flex-col flex-1 justify-center items-center space-y-7">
+            <div className={`${styles['wrapper']} flex justify-center items-center min-h-screen`}>
+                <div className="">
+                    <div className="flex space-x-9 ">
+                        <div className="left flex flex-col flex-1 justify-center items-center space-y-7 ">
                             <div className="heading font-bold text-3xl">
                                 ĐĂNG NHẬP
                             </div>
@@ -34,7 +29,7 @@ const Login = (props: Props) => {
 
                             {/* Form inputs*/}
 
-                            <form className=' space-y-4'>
+                            <form className='space-y-4 px-15'>
                                 <div className={styles['form']}>
                                     <div className={styles['fromGroup']}>
                                         <input type="text" placeholder='Tên đăng nhập' className='rounded-2xl' />
@@ -66,7 +61,7 @@ const Login = (props: Props) => {
                             <div className={styles['loginOthers']}>
                                 <button className='rounded-2xl border border-[#F0EDFF] py-3'>
                                     <img src={googleLogo} alt="" />
-                                    <p>Đăng nhập với <b>Google</b></p> 
+                                    <p>Đăng nhập với <b>Google</b></p>
                                 </button>
                             </div>
 
@@ -75,7 +70,7 @@ const Login = (props: Props) => {
                             </div>
                         </div>
                         <div className="right flex flex-1">
-                            <img src={banner} alt="" />
+                            <img src={bannerLogin} alt="" />
                         </div>
                     </div>
                 </div>
