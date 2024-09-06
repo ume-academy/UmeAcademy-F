@@ -7,7 +7,9 @@ import Layout_Client from './layouts/Layout_Client';
 import Dashboard from './pages/admin/Dashboard/Dashboard';
 import List_Product from './pages/admin/Products/List_Product';
 import Home_Page from './pages/client/Home_Page/Home_Page';
+import Search_Page from './pages/client/Search_Page/Search_Page';
 import Login from './pages/auth/Login/Login';
+
 
 function App() {
 
@@ -35,6 +37,7 @@ function App() {
           {/* <===== Layout client =====>*/}
           <Route path='/' element={<Layout_Client />} >
               <Route index element={<Home_Page />} />
+              <Route path='/search' element={<Search_Page />} />
           </Route>
 
           {/* <===== Auth =====>*/}
