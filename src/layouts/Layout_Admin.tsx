@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Loader from '../common/Loader/Loader';
-import Sidebar from '../components/admin/sidebar';
+import Sidebar from '../components/admin/Sidebar';
 import Header from '../components/admin/Header';
 
 

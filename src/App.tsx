@@ -6,25 +6,24 @@ import Layout_Admin from './layouts/Layout_Admin';
 import Layout_Client from './layouts/Layout_Client';
 import Dashboard from './pages/admin/Dashboard/Dashboard';
 import List_Product from './pages/admin/Products/List_Product';
+import Home_Page from './pages/client/Home_Page/Home_Page';
 
 function App() {
 
   
-  {/* <===== Sử dụng cho layout admin =====>*/}
+  {/* <===== Sử dụng cho layout admin cuộn lên đầu trang khi path thay đổi =====>*/}
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-
-
-  {/* <===== Kết thúc layout admin =====>*/}
+  {/* <===== Kết thúc layout admin cuộn lên đầu trang =====>*/}
 
   return (
     <>
 
-        <Routes>
+      <Routes>
 
           {/* <===== Layout admin =====>*/}
           <Route path='/admin' element={<Layout_Admin />} >
@@ -33,10 +32,11 @@ function App() {
           </Route>
 
           {/* <===== Layout client =====>*/}
-          <Route path='/' element={<Layout_Client />} />
-          
-        </Routes>
+          <Route path='/' element={<Layout_Client />} >
+              <Route index element={<Home_Page />} />
+          </Route>
 
+      </Routes>
     </>
   )
 }
