@@ -1,0 +1,95 @@
+.wrapper {
+  width: 1280px;
+  margin: 0 auto;
+
+  form {
+    width: 100%;
+    padding: 0 100px;
+
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.125rem;
+
+      .fromGroup {
+        position: relative;
+
+        input {
+          width: 100%;
+          padding: 10px 10px 10px 50px;
+          background-color: #f0edffcc;
+          outline: none;
+        }
+
+        .icon {
+          position: absolute;
+          top: 50%;
+          left: 6%;
+          transform: translate(-50%, -50%);
+          // width: 100%;
+          // height: 100%;
+          display: flex;
+          align-items: center;
+        }
+      }
+
+      .btnGroup {
+        display: flex;
+        justify-content: center;
+
+        button {
+          width: 124px;
+          height: 52px;
+          background: linear-gradient(90deg, #c67d39, #ac5e07);
+          border-radius: 16px;
+          color: white;
+          font-size: 14px;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          &:hover {
+            background: linear-gradient(90deg, #ac5e07, #c67d39);
+          }
+        }
+      }
+    }
+  }
+
+  .hr {
+    width: 100%;
+    padding: 0 4rem;
+
+    .line {
+      position: relative;
+      // width: 100%;
+      text-align: center;
+
+      hr {
+        border: none;
+        border-top: 1px solid #f0edff;
+      }
+
+      p {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: #fff;
+        padding: 0 10px;
+      }
+    }
+  }
+
+  .RegisterOthers {
+    width: 100%;
+    padding: 0 4rem;
+
+    button {
+      width: 100%;
+      gap: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}

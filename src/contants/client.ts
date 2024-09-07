@@ -17,6 +17,9 @@ export const navigationCategory = [
 export const sliderImg = './src/assets/images/client/HomePage/banner.jpg';
 
 
+// img Register
+export const bannerRegister = './src/assets/images/client/Register/banner-register.jpg';
+export const google = './src/assets/images/client/Register/google.png';
 
 // Login 
 // Banner
