@@ -10,9 +10,20 @@ export const navigationCategory = [
     {id: 3,title: "Phát triển"},
     {id: 4,title: "Tài chính & Kế toán"},
     {id: 5,title: "Kinh doanh"}
-]
+];
+
+//Slider
+//Image
+export const sliderImg = './src/assets/images/client/HomePage/banner.jpg';
 
 
 // img Register
 export const bannerRegister = './src/assets/images/client/Register/banner-register.jpg';
 export const google = './src/assets/images/client/Register/google.png';
+
+// Login 
+// Banner
+export const bannerLogin = './src/assets/images/client/LoginPage/banner_login.jpg';
+export const googleLogo = './src/assets/images/client/LoginPage/google_logo.png';
+export const lockIcon = './src/assets/images/client/LoginPage/icon_lock.png';
+export const userIcon = './src/assets/images/client/LoginPage/icon_user.png';

@@ -1,7 +1,6 @@
 import { Carousel } from 'antd';
-import React from 'react'
-// import { bannerImg } from '../../../contants/client';
-import bannerImg from '../../../assets/images/client/HomePage/banner.jpg';
+import { sliderImg } from '../../../contants/client';
+
 
 const Slider = () => {
 
@@ -21,22 +20,22 @@ const Slider = () => {
             <Carousel arrows infinite={false}>
                 <div>
                     <h3>
-                        <img src={bannerImg} alt="" width={'100%'}/>
+                        <img src={sliderImg} alt="" width={'100%'}/>
                     </h3>
                 </div>
                 <div>
                     <h3>
-                        <img src={bannerImg} alt="" width={'100%'}/>
+                        <img src={sliderImg} alt="" width={'100%'}/>
                     </h3>
                 </div>
                 <div>
                     <h3>
-                        <img src={bannerImg} alt="" width={'100%'}/>
+                        <img src={sliderImg} alt="" width={'100%'}/>
                     </h3>
                 </div>
                 <div>
                     <h3>
-                        <img src={bannerImg} alt="" width={'100%'}/>
+                        <img src={sliderImg} alt="" width={'100%'}/>
                     </h3>
                 </div>
             </Carousel>
