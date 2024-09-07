@@ -1,7 +1,7 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from '../components/client/Header/Header'
-import Footer from '../components/client/footer/Footer'
+import Footer from '../components/client/Footer/Footer'
 
 interface Props {
     
@@ -10,11 +10,13 @@ interface Props {
 const Layout_Client = (props: Props) => {
     return (
         <>
+        <div className="min-h-screen flex flex-col">
         <Header />
-            <main>
+            <main className='flex-grow'>
                <Outlet /> 
             </main>   
         <Footer />
+        </div>
         </>
     )
 }

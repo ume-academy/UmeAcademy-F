@@ -14,7 +14,7 @@ const Register = () => {
                     <div className="flex space-x-9 ">
                         <div className="left flex flex-col flex-1 justify-center items-center space-y-7 ">
 
-                            <div className="heading font-bold text-3xl">
+                            <div className="heading font-bold text-3xl uppercase">
                                 Đăng ký
                             </div>
 
@@ -37,7 +37,7 @@ const Register = () => {
                                     </div>
 
                                     <div className={styles['btnGroup']}>
-                                        <button className='rounded-2xl'>Đăng nhập</button>
+                                        <button className='rounded-2xl'>Đăng ký</button>
                                     </div>
                                 </div>
                             </form>
@@ -56,7 +56,7 @@ const Register = () => {
                             </div>
 
                             <div className="">
-                                <p>Bạn đã có tài khoản? <Link to={''} className='text-[#C67D39] hover:underline font-bold'>Đăng nhập ngay</Link></p>
+                                <p>Bạn đã có tài khoản? <Link to={'/login'} className='text-[#C67D39] hover:underline font-bold'>Đăng nhập ngay</Link></p>
                             </div>
                         </div>
                         <div className="right flex flex-1">
