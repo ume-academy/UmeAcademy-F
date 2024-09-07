@@ -28,7 +28,6 @@ const Login = (props: Props) => {
                             </div>
 
                             {/* Form inputs*/}
-
                             <form className='space-y-4 px-15'>
                                 <div className={styles['form']}>
                                     <div className={styles['fromGroup']}>
@@ -53,8 +52,6 @@ const Login = (props: Props) => {
                                     <p><b>Login </b> with Others</p>
 
                                 </div>
-                                {/* <div className={styles['text']}>
-                                </div> */}
                             </div>
 
                             {/* Login with Google */}
@@ -66,7 +63,7 @@ const Login = (props: Props) => {
                             </div>
 
                             <div className="">
-                                <p>Bạn chưa có tài khoản? <Link to={''} className='text-[#C67D39] font-bold'>Đăng ký ngay</Link></p>
+                                <p>Bạn chưa có tài khoản? <Link to={'/register'} className='text-[#C67D39] font-bold hover:underline'>Đăng ký ngay</Link></p>
                             </div>
                         </div>
                         <div className="right flex flex-1">
