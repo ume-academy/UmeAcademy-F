@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import styles from './Login.module.scss';
+import styles from './login.module.scss';
 
 // images
 import { bannerLogin, googleLogo, lockIcon, userIcon } from '../../../contants/client';

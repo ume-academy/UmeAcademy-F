@@ -1,4 +1,3 @@
-
 import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.scss';
@@ -10,6 +9,8 @@ import Home_Page from './pages/client/Home_Page/Home_Page';
 import Register from './pages/client/Register/Register';
 import Search_Page from './pages/client/Search_Page/Search_Page';
 import Login from './pages/auth/Login/Login';
+import Purchased_Course from './pages/client/Purchased_Course/Purchased_Course';
+import Payment_History from './pages/client/History_Payment_Page/Payment_History';
 import Course_Detail from './pages/client/Courses/Details/Course_Detail';
 
 function App() {
@@ -39,6 +40,8 @@ function App() {
         <Route path='/' element={<Layout_Client />} >
             <Route index element={<Home_Page />} />
             <Route path='/search' element={<Search_Page />} />
+            <Route path='/purchased_course' element={<Purchased_Course/>} />
+            <Route path='/history_payment' element={<Payment_History />} />
             <Route path='/course/details/:id' element={<Course_Detail />} />
         </Route>
 
