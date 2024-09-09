@@ -12,12 +12,6 @@ export const navigationCategory = [
     {id: 5,title: "Kinh doanh"}
 ];
 
-// Danh sách trang ẩn nav của header và ẩn footer
-export const routeConfig = {
-    hiddenNavRoutes: ['/history_payment','/course/details/:id'],
-    hiddenFooterRoutes: ['/history_payment','/course/details/:id']
-};
-
 //Slider
 //Image
 export const sliderImg = './src/assets/images/client/HomePage/banner.jpg';
@@ -34,9 +28,8 @@ export const googleLogo = './src/assets/images/client/LoginPage/google_logo.png'
 export const lockIcon = './src/assets/images/client/LoginPage/icon_lock.png';
 export const userIcon = './src/assets/images/client/LoginPage/icon_user.png';
 
-// Danh sách trang ẩn nav của header và ẩn footer
 export const routeConfig = {
-    hiddenNavRoutes: ['/history_payment','/purchased_course'],
-    hiddenFooterRoutes: ['/history_payment','/purchased_course'],
+    hiddenNavRoutes: ['/history_payment','/purchased_course', '/course/details/:id'],
+    hiddenFooterRoutes: ['/history_payment','/purchased_course', '/course/details/:id'],
 };
 
