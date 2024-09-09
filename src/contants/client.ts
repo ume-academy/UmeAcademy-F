@@ -12,6 +12,7 @@ export const navigationCategory = [
     {id: 5,title: "Kinh doanh"}
 ];
 
+
 //Slider
 //Image
 export const sliderImg = './src/assets/images/client/HomePage/banner.jpg';
@@ -32,4 +33,3 @@ export const routeConfig = {
     hiddenNavRoutes: ['/history_payment','/purchased_course', '/course/details/:id'],
     hiddenFooterRoutes: ['/history_payment','/purchased_course', '/course/details/:id'],
 };
-
