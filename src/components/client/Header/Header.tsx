@@ -1,6 +1,7 @@
 import { BookOutlined, HistoryOutlined, LogoutOutlined, QuestionCircleOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons'
 import { Avatar, Button, Dropdown, Menu } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+
 import { navigationCategory, routeConfig } from '../../../contants/client'
 import styles from './header.module.scss'
 
@@ -9,7 +10,14 @@ interface Props {
 }
 
 const Header = (props: Props) => {
+//   Cho các đường dẫn KHÔNG có :id
   const shouldHideNav = routeConfig.hiddenNavRoutes.includes(location.pathname);
+
+//   Cho các đường dẫn có :id
+//   const shouldHideNav = routeConfig.hiddenNavRoutes.some(route => {
+//     const regex = new RegExp(`^${route.replace(':id', '[^/]+')}$`);
+//     return regex.test(location.pathname);
+//   });
 
   const menuItems: any = [
     {

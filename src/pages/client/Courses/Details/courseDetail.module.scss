@@ -1,0 +1,56 @@
+.mainContent {
+    background-color: #FDFAFA;
+    box-shadow: 1px 1px 20px 0px #00000040;
+
+    .heading {
+        font-weight: 700;
+        color: #658CC2;
+    }
+
+    .content {
+        width: 100%;
+        padding: 10px 0;
+
+        iframe {
+            width: 100%;
+            height: 500px;
+        }
+    }
+
+    .info {
+        .infoCourse, .action, .rating {
+            flex: 1;
+        }
+
+        .infoCourse {
+            border: 1px solid #0E8585;
+            border-radius: 12px;
+            background-color: #ffffff;
+
+            ul {
+                margin: 0;
+                padding: 0;
+
+                li {
+                    margin: 7px 0;
+
+                    .path {
+                        color: #0E8585;
+                        font-weight: 500;
+                    }
+                }
+            }
+
+
+        }
+
+        .action {
+
+            .btn {
+                background-color: #C67D39;
+                color: #ffffff;
+                font-weight: 700;
+            }
+        }
+    }
+}
