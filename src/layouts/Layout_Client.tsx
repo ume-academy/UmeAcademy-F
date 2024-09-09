@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../components/client/Header/Header';
-import { Footer } from 'antd/es/layout/layout';
 import { routeConfig } from '../contants/client';
+import Footer from '../components/client/footer/Footer';
 
 const Layout_Client = () => {
     const shouldHideFooter = routeConfig.hiddenFooterRoutes.includes(location.pathname);

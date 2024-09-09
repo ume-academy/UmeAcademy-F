@@ -1,7 +1,7 @@
-import Card_History_Payment from './Card_History_Payment';
+import Card_Payment_History from './Card_Payment_History';
 import styles from './history_payment.module.scss';
 
-const History_Payment = () => {
+const Payment_History = () => {
   return (
     <div className={`${styles.container} mt-20`}>
       <div className='flex items-center gap-5'>
@@ -13,9 +13,9 @@ const History_Payment = () => {
           <p className='text-[#74777F]'>giaothot2004@gmail.com</p>
         </div>
       </div>
-      <Card_History_Payment />
+      <Card_Payment_History />
     </div>
   )
 }
 
-export default History_Payment;
+export default Payment_History;

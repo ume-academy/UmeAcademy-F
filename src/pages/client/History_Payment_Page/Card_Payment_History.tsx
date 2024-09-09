@@ -1,6 +1,6 @@
 import style from './history_payment.module.scss'
 
-const Card_History_Payment = () => {
+const Card_Payment_History = () => {
     return (
         <div className={`${style["card"]} mt-10`}>
             <div className={`${style["item-card"]} flex justify-between`}>
@@ -35,4 +35,4 @@ const Card_History_Payment = () => {
     )
 }
 
-export default Card_History_Payment
+export default Card_Payment_History
