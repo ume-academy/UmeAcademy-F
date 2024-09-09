@@ -1,7 +1,7 @@
 import { ClockCircleOutlined, GlobalOutlined, UploadOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Rate, Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import styles from './Course_Detail.module.scss';
+import styles from './courseDetail.module.scss';
 const { Paragraph } = Typography;
 import { useState } from 'react';
 
