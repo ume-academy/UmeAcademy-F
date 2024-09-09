@@ -1,24 +1,20 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Header from '../components/client/Header/Header'
-import Footer from '../components/client/Footer/Footer'
+import { Outlet } from 'react-router-dom';
+import Header from '../components/client/Header/Header';
+import { routeConfig } from '../contants/client';
+import Footer from '../components/client/footer/Footer';
 
-interface Props {
-    
-}
+const Layout_Client = () => {
+    const shouldHideFooter = routeConfig.hiddenFooterRoutes.includes(location.pathname);
 
-const Layout_Client = (props: Props) => {
     return (
-        <>
         <div className="min-h-screen flex flex-col">
-        <Header />
+            <Header />
             <main className='flex-grow'>
-               <Outlet /> 
-            </main>   
-        <Footer />
+                <Outlet />
+            </main>
+            {!shouldHideFooter && <Footer />}
         </div>
-        </>
-    )
-}
+    );
+};
 
-export default Layout_Client
+export default Layout_Client;
