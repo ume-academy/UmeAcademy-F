@@ -10,7 +10,7 @@ import Home_Page from './pages/client/Home_Page/Home_Page';
 import Register from './pages/client/Register/Register';
 import Search_Page from './pages/client/Search_Page/Search_Page';
 import Login from './pages/auth/Login/Login';
-import Payment_History from './pages/client/History_Payment_Page/Payment_History';
+import Purchased_Course from './pages/client/Purchased_Course/Purchased_Course';
 
 function App() {
 
@@ -37,9 +37,9 @@ function App() {
 
         {/* <===== Layout client =====>*/}
         <Route path='/' element={<Layout_Client />} >
-          <Route index element={<Home_Page />} />
-          <Route path='/search' element={<Search_Page />} />
-          <Route path='/history_payment' element={<Payment_History />} />
+            <Route index element={<Home_Page />} />
+            <Route path='/search' element={<Search_Page />} />
+            <Route path='/purchased_course' element={<Purchased_Course/>} />
         </Route>
 
         {/* <===== Auth =====>*/}
