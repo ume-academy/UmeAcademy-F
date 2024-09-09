@@ -1,4 +1,4 @@
-import style from './history_payment.module.scss'
+import style from './Payment_History.module.scss'
 
 const Card_Payment_History = () => {
     return (

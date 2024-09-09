@@ -1,5 +1,5 @@
 import Card_Payment_History from './Card_Payment_History';
-import styles from './history_payment.module.scss';
+import styles from './Payment_History.module.scss';
 
 const Payment_History = () => {
   return (
