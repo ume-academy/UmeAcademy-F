@@ -12,6 +12,8 @@ import Login from './pages/auth/Login/Login';
 import Purchased_Course from './pages/client/Purchased_Course/Purchased_Course';
 import Payment_History from './pages/client/History_Payment_Page/Payment_History';
 import Course_Detail from './pages/client/Courses/Details/Course_Detail';
+import Layout_Teacher from './layouts/Layout_Teacher';
+import Dashboard_Teacher from './pages/teacher/Dashboard/Dashboard_Teacher';
 
 function App() {
 
@@ -38,11 +40,17 @@ function App() {
 
         {/* <===== Layout client =====>*/}
         <Route path='/' element={<Layout_Client />} >
-            <Route index element={<Home_Page />} />
-            <Route path='/search' element={<Search_Page />} />
-            <Route path='/purchased_course' element={<Purchased_Course/>} />
-            <Route path='/history_payment' element={<Payment_History />} />
-            <Route path='/course/details/:id' element={<Course_Detail />} />
+          <Route index element={<Home_Page />} />
+          <Route path='/search' element={<Search_Page />} />
+          <Route path='/purchased_course' element={<Purchased_Course />} />
+          <Route path='/history_payment' element={<Payment_History />} />
+          <Route path='/course/details/:id' element={<Course_Detail />} />
+        </Route>
+
+        {/* Role Teacher */}
+        <Route path='/teacher' element={<Layout_Teacher />} >
+          <Route index element={<Dashboard_Teacher />} />
+          <Route path='/teacher/courses' element={<h1>Test route</h1>} />
         </Route>
 
         {/* <===== Auth =====>*/}
