@@ -1,7 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import Header from '../components/client/Header/Header';
 import { routeConfig } from '../contants/client';
-import Footer from '../components/client/footer/Footer';
+import Footer from '../components/client/Footer/Footer';
+
 
 const Layout_Client = () => {
     const shouldHideFooter = routeConfig.hiddenFooterRoutes.includes(location.pathname);
