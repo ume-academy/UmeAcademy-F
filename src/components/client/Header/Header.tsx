@@ -1,7 +1,6 @@
 import { BookOutlined, HistoryOutlined, LogoutOutlined, QuestionCircleOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons'
 import { Avatar, Button, Dropdown, Menu } from 'antd'
-import { Link, useLocation } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 import { navigationCategory, routeConfig } from '../../../contants/client'
 import styles from './header.module.scss'
 
@@ -10,6 +9,8 @@ interface Props {
 }
 
 const Header = (props: Props) => {
+  const shouldHideHeader = routeConfig.hiddenFullHeaderRoutes.includes(location.pathname);
+
 //   Cho các đường dẫn KHÔNG có :id
   const shouldHideNav = routeConfig.hiddenNavRoutes.includes(location.pathname);
 
@@ -83,6 +84,7 @@ const Header = (props: Props) => {
 
   return (
     <>
+      {!shouldHideHeader && (
       <header>
         {/* navTop */}
         <div className="flex justify-between items-center px-[40px] border-b border-b-black pb-5">
