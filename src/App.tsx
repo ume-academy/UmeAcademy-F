@@ -14,6 +14,7 @@ import Payment_History from './pages/client/History_Payment_Page/Payment_History
 import Course_Detail from './pages/client/Courses/Details/Course_Detail';
 import Layout_Teacher from './layouts/Layout_Teacher';
 import Dashboard_Teacher from './pages/teacher/Dashboard/Dashboard_Teacher';
+import List_Courses from './pages/teacher/Courses/List/List_Courses';
 
 function App() {
 
@@ -50,7 +51,7 @@ function App() {
         {/* Role Teacher */}
         <Route path='/teacher' element={<Layout_Teacher />} >
           <Route index element={<Dashboard_Teacher />} />
-          <Route path='/teacher/courses' element={<h1>Test route</h1>} />
+          <Route path='/teacher/courses' element={<List_Courses />} />
         </Route>
 
         {/* <===== Auth =====>*/}

@@ -23,13 +23,13 @@ function getItem(
 const items: MenuItem[] = [
   getItem(<NavLink to={'/teacher'}>Dashboard</NavLink>, '1', <PieChartOutlined />),
   getItem(<NavLink to={'/teacher/courses'}>Bài giảng của tôi</NavLink>, '2', <DesktopOutlined />),
-  getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Tom', '3'),
-    getItem('Bill', '4'),
-    getItem('Alex', '5'),
-  ]),
-  getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-  getItem('Files', '9', <FileOutlined />),
+  // getItem('User', 'sub1', <UserOutlined />, [
+  //   getItem('Tom', '3'),
+  //   getItem('Bill', '4'),
+  //   getItem('Alex', '5'),
+  // ]),
+  // getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
+  // getItem('Files', '9', <FileOutlined />),
 ];
 
 const Sidebar = () => {
@@ -40,10 +40,10 @@ const Sidebar = () => {
       collapsible 
       collapsed={collapsed} 
       onCollapse={(value) => setCollapsed(value)}
-      theme='light'
+      theme='dark'
     >
       <div className="demo-logo-vertical" />
-      <Menu theme="light" defaultSelectedKeys={['1']} mode="inline" items={items} />
+      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
     </Sider>
   );
 }
