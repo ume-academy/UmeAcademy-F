@@ -3,21 +3,21 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.scss';
 import Layout_Admin from './layouts/Layout_Admin';
 import Layout_Client from './layouts/Layout_Client';
-import Dashboard from './pages/admin/Dashboard/Dashboard';
+import Layout_Teacher from './layouts/Layout_Teacher';
+import Dashboard_Admin from './pages/admin/Dashboard/Dashboard';
 import List_Product from './pages/admin/Products/List_Product';
-import Home_Page from './pages/client/Home_Page/Home_Page';
-import Register from './pages/client/Register/Register';
-import Search_Page from './pages/client/Search_Page/Search_Page';
 import Login from './pages/auth/Login/Login';
 import Content_Course_Page from './pages/client/Courses/Content_Course_Page/Content_Course_Page';
-import Purchased_Course from './pages/client/Purchased_Course/Purchased_Course';
-import Payment_History from './pages/client/History_Payment_Page/Payment_History';
 import Course_Detail from './pages/client/Courses/Details/Course_Detail';
-import Layout_Teacher from './layouts/Layout_Teacher';
-import Dashboard_Teacher from './pages/teacher/Dashboard/Dashboard_Teacher';
-import List_Courses from './pages/teacher/Courses/List/List_Courses';
+import Payment_History from './pages/client/History_Payment_Page/Payment_History';
+import Home_Page from './pages/client/Home_Page/Home_Page';
 import NotFound from './pages/client/NotFound/NotFound';
+import Purchased_Course from './pages/client/Purchased_Course/Purchased_Course';
+import Register from './pages/client/Register/Register';
+import Search_Page from './pages/client/Search_Page/Search_Page';
+import List_Courses from './pages/teacher/Courses/List/List_Courses';
 import Histories_Transaction from './pages/teacher/Histories_Transaction/Histories_Transaction';
+import Dashboard_Teacher from './pages/teacher/Dashboard/Dashboard';
 
 function App() {
 
@@ -38,7 +38,7 @@ function App() {
 
         {/* <===== Layout admin =====>*/}
         <Route path='/admin' element={<Layout_Admin />} >
-          <Route path='/admin' element={<Dashboard />} />
+          <Route path='/admin' element={<Dashboard_Admin />} />
           <Route path='/admin/list_product' element={<List_Product />} />
         </Route>
 
