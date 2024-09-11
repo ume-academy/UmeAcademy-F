@@ -4,11 +4,8 @@ import Header from '../components/client/Header/Header'
 import Footer from '../components/client/Footer/Footer'
 import { routeConfig } from '../contants/client';
 
-interface Props {
-    
-}
 
-const Layout_Client = (props: Props) => {
+const Layout_Client = () => {
     const shouldHideFooter = routeConfig.hiddenFooterRoutes.includes(location.pathname);
 
     return (
@@ -22,4 +19,4 @@ const Layout_Client = (props: Props) => {
     );
 };
 
-export default Layout_Client
+export default Layout_Client;

@@ -12,6 +12,7 @@ export const navigationCategory = [
     {id: 5,title: "Kinh doanh"}
 ];
 
+
 //Slider
 //Image
 export const sliderImg = './src/assets/images/client/HomePage/banner.jpg';
@@ -30,7 +31,7 @@ export const userIcon = './src/assets/images/client/LoginPage/icon_user.png';
 
 // Danh sách trang ẩn nav của header và ẩn footer
 export const routeConfig = {
-    hiddenNavRoutes: ['/history_payment', '/content_course'],
-    hiddenFooterRoutes: ['/history_payment', '/content_course'],
+    hiddenNavRoutes: ['/history_payment','/purchased_course', '/course/details/:id'],
+    hiddenFooterRoutes: ['/history_payment','/purchased_course', '/course/details/:id'],
     hiddenFullHeaderRoutes: ['/content_course']
 };

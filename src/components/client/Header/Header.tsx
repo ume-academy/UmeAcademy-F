@@ -9,9 +9,16 @@ interface Props {
 }
 
 const Header = (props: Props) => {
-  const shouldHideNav = routeConfig.hiddenNavRoutes.includes(location.pathname);
   const shouldHideHeader = routeConfig.hiddenFullHeaderRoutes.includes(location.pathname);
 
+//   Cho các đường dẫn KHÔNG có :id
+  const shouldHideNav = routeConfig.hiddenNavRoutes.includes(location.pathname);
+
+//   Cho các đường dẫn có :id
+//   const shouldHideNav = routeConfig.hiddenNavRoutes.some(route => {
+//     const regex = new RegExp(`^${route.replace(':id', '[^/]+')}$`);
+//     return regex.test(location.pathname);
+//   });
 
   const menuItems: any = [
     {
@@ -78,7 +85,7 @@ const Header = (props: Props) => {
   return (
     <>
       {!shouldHideHeader && (
-        <header>
+      <header>
         {/* navTop */}
         <div className="flex justify-between items-center px-[40px] border-b border-b-black pb-5">
           <div className="flex items-center min-w-[706px] justify-between">
@@ -119,7 +126,6 @@ const Header = (props: Props) => {
           </div>
         )}
       </header>
-      )}
     </>
   )
 }
