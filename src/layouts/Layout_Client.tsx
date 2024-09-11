@@ -1,7 +1,8 @@
-import { Outlet } from 'react-router-dom';
-import Header from '../components/client/Header/Header';
+import React from 'react'
+import { Outlet } from 'react-router-dom'
+import Header from '../components/client/Header/Header'
+import Footer from '../components/client/Footer/Footer'
 import { routeConfig } from '../contants/client';
-import Footer from '../components/client/Footer/Footer';
 
 
 const Layout_Client = () => {
