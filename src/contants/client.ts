@@ -32,6 +32,6 @@ export const userIcon = './src/assets/images/client/LoginPage/icon_user.png';
 // Danh sách trang ẩn nav của header và ẩn footer
 export const routeConfig = {
     hiddenNavRoutes: ['/history_payment','/purchased_course', '/course/details/:id'],
-    hiddenFooterRoutes: ['/history_payment','/purchased_course','/course/details/:id'],
+    hiddenFooterRoutes: ['/history_payment','/purchased_course','/course/details/:id','/content_course'],
     hiddenFullHeaderRoutes: ['/content_course']
 };
