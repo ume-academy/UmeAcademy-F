@@ -35,3 +35,6 @@ export const routeConfig = {
     hiddenFooterRoutes: ['/history_payment','/purchased_course','/course/details/:id','/content_course'],
     hiddenFullHeaderRoutes: ['/content_course']
 };
+
+// 404 Not Found img
+export const notFoundImg = './src/assets/images/client/NotFound/notfound.png';

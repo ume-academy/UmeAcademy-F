@@ -16,8 +16,8 @@ import Course_Detail from './pages/client/Courses/Details/Course_Detail';
 import Layout_Teacher from './layouts/Layout_Teacher';
 import Dashboard_Teacher from './pages/teacher/Dashboard/Dashboard_Teacher';
 import List_Courses from './pages/teacher/Courses/List/List_Courses';
+import NotFound from './pages/client/NotFound/NotFound';
 import Histories_Transaction from './pages/teacher/Histories_Transaction/Histories_Transaction';
-
 
 function App() {
 
@@ -52,7 +52,7 @@ function App() {
             <Route path='/course/details/:id' element={<Course_Detail />} />
         </Route>
 
-        {/* Role Teacher */}
+        {/* <===== Role Teacher =====> */}
         <Route path='/teacher' element={<Layout_Teacher />} >
           <Route index element={<Dashboard_Teacher />} />
           <Route path='/teacher/courses' element={<List_Courses />} />
@@ -63,6 +63,8 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
 
+        {/* <===== Not found page =====> */}
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </>
   )
