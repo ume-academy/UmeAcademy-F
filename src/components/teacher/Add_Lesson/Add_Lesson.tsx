@@ -3,7 +3,7 @@ import { DeleteOutlined, DownOutlined, UpOutlined, PlusOutlined, UploadOutlined 
 import { useState } from "react";
 import styles from './add.module.scss'
 
-const Add_New_Lesson = () => {
+const Add_Lesson = () => {
     const [lessons, setLessons] = useState([{ id: 1, isUpload: false }]);
 
     // Thêm bài học mới khi nhấn "Thêm mới khóa học"
@@ -65,7 +65,7 @@ const Add_New_Lesson = () => {
     );
 
     return (
-        <div className={`${styles['container']} p-5`}>
+        <form className={`${styles['container']} p-5`}>
             <div className="flex justify-between items-center">
                 <h1 className={`${styles['title']} mb-4`}>
                     Lập trình Javascript
@@ -95,8 +95,8 @@ const Add_New_Lesson = () => {
                     </Button>
                 </div>
             </div>
-        </div>
+        </form>
     );
 };
 
-export default Add_New_Lesson;
+export default Add_Lesson;

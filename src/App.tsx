@@ -15,7 +15,7 @@ import Course_Detail from './pages/client/Courses/Details/Course_Detail';
 import Layout_Teacher from './layouts/Layout_Teacher';
 import Dashboard_Teacher from './pages/teacher/Dashboard/Dashboard_Teacher';
 import List_Courses from './pages/teacher/Courses/List/List_Courses';
-import Add_New_Lesson from './components/teacher/Add_New_Lesson/Add_New_Lesson';
+import Add_Lesson from './components/teacher/Add_Lesson/Add_Lesson';
 
 function App() {
 
@@ -53,7 +53,7 @@ function App() {
         <Route path='/teacher' element={<Layout_Teacher />} >
           <Route index element={<Dashboard_Teacher />} />
           <Route path='/teacher/courses' element={<List_Courses />} />
-          <Route path='/teacher/add_new_lesson' element={<Add_New_Lesson />} />
+          <Route path='/teacher/add_lesson' element={<Add_Lesson />} />
         </Route>
 
         {/* <===== Auth =====>*/}
