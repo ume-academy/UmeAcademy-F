@@ -33,3 +33,4 @@ export const routeConfig = {
     hiddenNavRoutes: ['/history_payment','/purchased_course', '/course/details/:id'],
     hiddenFooterRoutes: ['/history_payment','/purchased_course', '/course/details/:id'],
 };
+

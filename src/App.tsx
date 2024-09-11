@@ -15,6 +15,7 @@ import Course_Detail from './pages/client/Courses/Details/Course_Detail';
 import Layout_Teacher from './layouts/Layout_Teacher';
 import Dashboard_Teacher from './pages/teacher/Dashboard/Dashboard_Teacher';
 import List_Courses from './pages/teacher/Courses/List/List_Courses';
+import Form_Course from './components/teacher/Form_Course/Form_Course';
 
 function App() {
 
@@ -52,6 +53,8 @@ function App() {
         <Route path='/teacher' element={<Layout_Teacher />} >
           <Route index element={<Dashboard_Teacher />} />
           <Route path='/teacher/courses' element={<List_Courses />} />
+          <Route path='/teacher/form_course_add' element={<Form_Course />} />
+          <Route path='/teacher/form_course_edit/:id' element={<Form_Course />} />
         </Route>
 
         {/* <===== Auth =====>*/}
