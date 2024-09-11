@@ -36,7 +36,7 @@ const Layout_Teacher = () => {
                                 padding: 24,
                                 minHeight: 360,
                                 margin: '16px 0',
-                                background: colorBgContainer,
+                                backgroundColor: '#F5F6FA',
                                 borderRadius: borderRadiusLG,
                             }}
                         >
