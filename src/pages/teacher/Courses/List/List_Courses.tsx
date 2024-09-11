@@ -1,8 +1,8 @@
-import { DeleteOutlined, EditOutlined, PlusOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Select, Space, Table, TableColumnsType, TableProps, Tag } from 'antd';
-import React, { useState } from 'react'
-import styles from './listCorse.module.scss'
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
+import { Button, Table, TableColumnsType, TableProps, Tag } from 'antd';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import styles from './listCorse.module.scss';
 
 type OnChange = NonNullable<TableProps<DataType>['onChange']>;
 type Filters = Parameters<OnChange>[1];
@@ -62,21 +62,21 @@ const List_Courses = () => {
         setSortedInfo(sorter as Sorts);
     };
 
-    const clearFilters = () => {
-        setFilteredInfo({});
-    };
+    // const clearFilters = () => {
+    //     setFilteredInfo({});
+    // };
 
-    const clearAll = () => {
-        setFilteredInfo({});
-        setSortedInfo({});
-    };
+    // const clearAll = () => {
+    //     setFilteredInfo({});
+    //     setSortedInfo({});
+    // };
 
-    const setAgeSort = () => {
-        setSortedInfo({
-            order: 'descend',
-            columnKey: 'price',
-        });
-    };
+    // const setAgeSort = () => {
+    //     setSortedInfo({
+    //         order: 'descend',
+    //         columnKey: 'price',
+    //     });
+    // };
 
     const columns: TableColumnsType<DataType> = [
         {
