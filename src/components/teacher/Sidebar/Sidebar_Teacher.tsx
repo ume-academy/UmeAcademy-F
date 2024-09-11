@@ -1,4 +1,4 @@
-import { DesktopOutlined, FileOutlined, PieChartOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
+import { DesktopOutlined, FileOutlined, HistoryOutlined, PieChartOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { Menu, MenuProps } from 'antd';
 import Sider from 'antd/es/layout/Sider';
 import React, { useState } from 'react';
@@ -23,6 +23,7 @@ function getItem(
 const items: MenuItem[] = [
   getItem(<NavLink to={'/teacher'}>Dashboard</NavLink>, '1', <PieChartOutlined />),
   getItem(<NavLink to={'/teacher/courses'}>Bài giảng của tôi</NavLink>, '2', <DesktopOutlined />),
+  getItem(<NavLink to={'/teacher/histories_transaction'}>Lịch sử thanh toán</NavLink>, '3', <HistoryOutlined />),
   // getItem('User', 'sub1', <UserOutlined />, [
   //   getItem('Tom', '3'),
   //   getItem('Bill', '4'),
