@@ -116,7 +116,7 @@ const Header = (props: Props) => {
         </div>
 
         {/* Nav bottom */}
-        {!shouldHideNav && ( // Ẩn Nav nếu đường dẫn nằm trong mảng hiddenNavRoutes ngược lại thì hiện lên
+        {!shouldHideNav && ( // Ẩn Nav nếu đường dẫn nằm trong mảng hiddenNavRoutes ngược lại thì hiện ra
           <div className="flex bg-[#AC5E07] text-white justify-around items-center">
             {navigationCategory.map((title) => (
               <ul className='h-[60px] flex items-center' key={title.id}>
