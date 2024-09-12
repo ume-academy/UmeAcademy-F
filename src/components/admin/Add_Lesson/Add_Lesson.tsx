@@ -3,7 +3,7 @@ import { DeleteOutlined, DownOutlined, UpOutlined, PlusOutlined, UploadOutlined 
 import { useState } from "react";
 import styles from './add.module.scss'
 
-const Add_Lesson_Teacher = () => {
+const Add_Lesson_Admin = () => {
     const [lessons, setLessons] = useState([{ id: 1, isUpload: false }]);
     const fileList: UploadFile[] = []
 
@@ -102,4 +102,4 @@ const Add_Lesson_Teacher = () => {
     );
 };
 
-export default Add_Lesson_Teacher;
+export default Add_Lesson_Admin;
