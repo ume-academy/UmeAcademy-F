@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import Logo from '../../../assets/images/admin/logo/logo.svg';
 import SidebarLinkGroup from './SidebarLinkGroup';
-import { AppstoreAddOutlined, CalendarOutlined, DashboardOutlined, SolutionOutlined, UserAddOutlined, UserOutlined, FolderAddOutlined, UnorderedListOutlined } from '@ant-design/icons';
+import { AppstoreAddOutlined, CalendarOutlined, DashboardOutlined, SolutionOutlined, UserAddOutlined, UserOutlined, FolderAddOutlined, UnorderedListOutlined, OrderedListOutlined } from '@ant-design/icons';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -206,19 +206,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                 </NavLink>
               </li>
 
-              {/* <!-- Menu Item Calendar -->
-              <li>
-                <NavLink
-                  to="/admin/list_users"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes('list_users') &&
-                    'bg-graydark dark:bg-meta-4'
-                    }`}
-                >
-                  <UserOutlined />
-                  Danh sách người dùng
-                </NavLink>
-              </li> */}
-
               {/* <!-- Menu Item Users --> */}
               <SidebarLinkGroup
                 activeCondition={
@@ -242,9 +229,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         }}
                       >
                         <UserOutlined />
-                        <Link to={'/admin/users'}>
-                          Users
-                        </Link>
+                        Users
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && 'rotate-180'
                             }`}
@@ -269,7 +254,6 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       >
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
                           <li>
-
                             <NavLink
                               to="/admin/create_user"
                               className={({ isActive }) =>
@@ -383,10 +367,8 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                             : setSidebarExpanded(true);
                         }}
                       >
-                        <UnorderedListOutlined style={{ fontSize: 20 }} />
-                        <Link to='/admin/categories'>
+                        <UnorderedListOutlined style={{ fontSize: 20 }} />     
                           Danh mục
-                        </Link>
                         <svg
                           className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
                             }`}
@@ -410,6 +392,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           }`}
                       >
                         <ul className="mt-4 mb-5.5 flex flex-col gap-2.5 pl-6">
+                          <li>
+                            <NavLink
+                              to="/admin/categories"
+                              className={({ isActive }) =>
+                                "group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white " +
+                                (isActive && "!text-white")
+                              }
+                            >
+                              <OrderedListOutlined />
+                              Danh sách danh mục
+                            </NavLink>
+                          </li>
+
                           <li>
                             <NavLink
                               to="/admin/create_category"
