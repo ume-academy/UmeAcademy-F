@@ -17,9 +17,10 @@ import NotFound from './pages/client/NotFound/NotFound';
 import Purchased_Course from './pages/client/Purchased_Course/Purchased_Course';
 import Register from './pages/client/Register/Register';
 import Search_Page from './pages/client/Search_Page/Search_Page';
-import Histories_Transaction from './pages/teacher/Histories_Transaction/Histories_Transaction';
+import Histories_Transaction_Teacher from './pages/teacher/Histories_Transaction/Histories_Transaction';
 import Form_Course_Admin from './components/admin/Form_Course/Form_Course';
 import Form_Course from './components/teacher/Form_Course/Form_Course';
+import Histories_Transaction_Admin from './pages/admin/Histories_Transaction/Histories_Transaction';
 
 function App() {
 
@@ -43,6 +44,8 @@ function App() {
           <Route path='/admin' element={<Dashboard_Admin />} />
           <Route path='/admin/form_course_add' element={<Form_Course_Admin />} />
           <Route path='/admin/form_course_edit/:id' element={<Form_Course_Admin />} />
+          <Route path='/admin/histories_transaction' element={<Histories_Transaction_Admin />} />
+
         </Route>
 
         {/* <===== Layout client =====>*/}
@@ -60,7 +63,7 @@ function App() {
           <Route index element={<Dashboard_Teacher />} />
           <Route path='/teacher/courses' element={<List_Courses />} />
           <Route path='/teacher/add_lesson' element={<Add_Lesson />} />
-          <Route path='/teacher/histories_transaction' element={<Histories_Transaction />} />
+          <Route path='/teacher/histories_transaction' element={<Histories_Transaction_Teacher />} />
           <Route path='/teacher/form_course_add' element={<Form_Course />} />
           <Route path='/teacher/form_course_edit/:id' element={<Form_Course />} />
         </Route>
