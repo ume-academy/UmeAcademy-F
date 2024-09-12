@@ -5,7 +5,6 @@ import Layout_Admin from './layouts/Layout_Admin';
 import Layout_Client from './layouts/Layout_Client';
 import Layout_Teacher from './layouts/Layout_Teacher';
 import Dashboard_Admin from './pages/admin/Dashboard/Dashboard';
-import List_Product from './pages/admin/Products/List_Product';
 import Login from './pages/auth/Login/Login';
 import Content_Course_Page from './pages/client/Courses/Content_Course_Page/Content_Course_Page';
 import Course_Detail from './pages/client/Courses/Details/Course_Detail';
@@ -42,7 +41,6 @@ function App() {
         {/* <===== Layout admin =====>*/}
         <Route path='/admin' element={<Layout_Admin />} >
           <Route path='/admin' element={<Dashboard_Admin />} />
-          <Route path='/admin/list_product' element={<List_Product />} /> //** Có thể xóa*/
           <Route path='/admin/form_course_add' element={<Form_Course_Admin />} />
           <Route path='/admin/form_course_edit/:id' element={<Form_Course_Admin />} />
         </Route>
