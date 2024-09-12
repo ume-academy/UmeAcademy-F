@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import Logo from '../../../assets/images/admin/logo/logo.svg';
 import SidebarLinkGroup from './SidebarLinkGroup';
-import { AppstoreAddOutlined, CalendarOutlined, DashboardOutlined, SolutionOutlined, UserAddOutlined, UserOutlined, FolderAddOutlined, UnorderedListOutlined, OrderedListOutlined } from '@ant-design/icons';
+import { AppstoreAddOutlined, CalendarOutlined, FileAddOutlined, FolderAddOutlined, OrderedListOutlined, SolutionOutlined, UnorderedListOutlined, UserAddOutlined, UserOutlined } from '@ant-design/icons';
 
 interface SidebarProps {
   sidebarOpen: boolean;
