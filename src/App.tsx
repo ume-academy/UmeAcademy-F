@@ -13,12 +13,13 @@ import Payment_History from './pages/client/History_Payment_Page/Payment_History
 import Home_Page from './pages/client/Home_Page/Home_Page';
 import Dashboard_Teacher from './pages/teacher/Dashboard/Dashboard';
 import List_Courses from './pages/teacher/Courses/List/List_Courses';
-import Add_Lesson from './components/teacher/Add_Lesson/Add_Lesson';
+import Add_Lesson from './components/admin/Add_Lesson/Add_Lesson';
 import NotFound from './pages/client/NotFound/NotFound';
 import Purchased_Course from './pages/client/Purchased_Course/Purchased_Course';
 import Register from './pages/client/Register/Register';
 import Search_Page from './pages/client/Search_Page/Search_Page';
 import Histories_Transaction from './pages/teacher/Histories_Transaction/Histories_Transaction';
+import Add_Lesson_Admin from './components/admin/Add_Lesson/Add_Lesson';
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
         <Route path='/admin' element={<Layout_Admin />} >
           <Route path='/admin' element={<Dashboard_Admin />} />
           <Route path='/admin/list_product' element={<List_Product />} /> //** Có thể xóa*/
+          <Route path='/admin/add_lesson' element={<Add_Lesson_Admin />} />
         </Route>
 
         {/* <===== Layout client =====>*/}

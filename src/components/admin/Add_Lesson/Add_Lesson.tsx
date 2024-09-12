@@ -3,7 +3,7 @@ import { DeleteOutlined, DownOutlined, UpOutlined, PlusOutlined, UploadOutlined 
 import { useState } from "react";
 import styles from './add.module.scss'
 
-const Add_Lesson = () => {
+const Add_Lesson_Admin = () => {
     const [lessons, setLessons] = useState([{ id: 1, isUpload: false }]);
 
     // Thêm bài học mới khi nhấn "Thêm mới khóa học"
@@ -99,4 +99,4 @@ const Add_Lesson = () => {
     );
 };
 
-export default Add_Lesson;
+export default Add_Lesson_Admin;
