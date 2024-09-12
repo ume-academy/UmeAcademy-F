@@ -1,6 +1,6 @@
 import { Table, TableColumnsType, TableProps, Tag } from 'antd';
 import { useState } from 'react';
-import styles from './histotiesTransaction.module.scss';
+import styles from './histories_transaction.module.scss';
 import { Select, Space } from 'antd';
 
 
