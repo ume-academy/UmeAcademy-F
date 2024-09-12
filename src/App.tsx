@@ -21,6 +21,8 @@ import Histories_Transaction_Teacher from './pages/teacher/Histories_Transaction
 import Form_Course_Admin from './components/admin/Form_Course/Form_Course';
 import Form_Course from './components/teacher/Form_Course/Form_Course';
 import Histories_Transaction_Admin from './pages/admin/Histories_Transaction/Histories_Transaction';
+import FormSubmitCategory from './pages/admin/Categories/FormSubmitCategory/FormSubmitCategory';
+import List_Categories from './pages/admin/Categories/ListCategories/List_Categories';
 
 function App() {
 
@@ -46,6 +48,10 @@ function App() {
           <Route path='/admin/form_course_edit/:id' element={<Form_Course_Admin />} />
           <Route path='/admin/histories_transaction' element={<Histories_Transaction_Admin />} />
 
+          {/* Categories's route */}
+          <Route path='/admin/categories' element={<List_Categories />} />
+          <Route path='/admin/create_category' element={<FormSubmitCategory />} />
+          <Route path='/admin/update_category/:id' element={<FormSubmitCategory />} />
         </Route>
 
         {/* <===== Layout client =====>*/}
