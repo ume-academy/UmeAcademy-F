@@ -6,7 +6,7 @@ import Dragger from 'antd/es/upload/Dragger';
 const Form_Course = () => {
     const { TreeNode } = TreeSelect;
     const fileList: UploadFile[] = []
-    const id = 1
+    const id = 0
     return (
         <form className={`${styles['container']} p-5`}>
             <div className="flex justify-between items-center mb-10">
