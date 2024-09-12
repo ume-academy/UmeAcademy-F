@@ -20,6 +20,7 @@ import Register from './pages/client/Register/Register';
 import Search_Page from './pages/client/Search_Page/Search_Page';
 import Histories_Transaction from './pages/teacher/Histories_Transaction/Histories_Transaction';
 import Form_Course_Admin from './components/admin/Form_Course/Form_Course';
+import Form_Course from './components/teacher/Form_Course/Form_Course';
 
 function App() {
 
@@ -48,12 +49,12 @@ function App() {
 
         {/* <===== Layout client =====>*/}
         <Route path='/' element={<Layout_Client />} >
-            <Route index element={<Home_Page />} />
-            <Route path='/search' element={<Search_Page />} />
-            <Route path='/content_course' element={<Content_Course_Page />} />
-            <Route path='/purchased_course' element={<Purchased_Course />} />
-            <Route path='/history_payment' element={<Payment_History />} />
-            <Route path='/course/details/:id' element={<Course_Detail />} />
+          <Route index element={<Home_Page />} />
+          <Route path='/search' element={<Search_Page />} />
+          <Route path='/content_course' element={<Content_Course_Page />} />
+          <Route path='/purchased_course' element={<Purchased_Course />} />
+          <Route path='/history_payment' element={<Payment_History />} />
+          <Route path='/course/details/:id' element={<Course_Detail />} />
         </Route>
 
         {/* <===== Role Teacher =====> */}
@@ -62,6 +63,8 @@ function App() {
           <Route path='/teacher/courses' element={<List_Courses />} />
           <Route path='/teacher/add_lesson' element={<Add_Lesson />} />
           <Route path='/teacher/histories_transaction' element={<Histories_Transaction />} />
+          <Route path='/teacher/form_course_add' element={<Form_Course />} />
+          <Route path='/teacher/form_course_edit/:id' element={<Form_Course />} />
         </Route>
 
         {/* <===== Auth =====>*/}
