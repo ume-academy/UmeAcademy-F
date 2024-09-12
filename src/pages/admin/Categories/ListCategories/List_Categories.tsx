@@ -13,6 +13,7 @@ type Sorts = GetSingle<Parameters<OnChange>[2]>;
 
 interface DataType {
     key: string;
+    id: any;
     title: string;
     createdAt: string
 }
@@ -21,16 +22,19 @@ interface DataType {
 const data: DataType[] = [
     {
         key: '1',
+        id: 1,
         title: 'Công nghệ thông tin & Lập trình',
         createdAt: '12/09/2024'
     },
     {
         key: '2',
+        id: 2,
         title: 'K   inh doanh & Khởi nghệp',
         createdAt: '10/2/2022'
     },
     {
         key: '3',
+        id: 3,
         title: 'Ngoại Ngữ',
         createdAt: '14/2/2019'
     }
@@ -48,6 +52,13 @@ const List_Categories = () => {
     };
 
     const columns: TableColumnsType<DataType> = [
+        {
+            title: <div className="text-center">STT</div>,
+            dataIndex: 'id',
+            key: 'id',
+            align: 'center',
+            width: '100px'
+        },
         {
             title: 'Tên khóa học',
             dataIndex: 'title',
