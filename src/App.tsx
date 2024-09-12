@@ -40,7 +40,7 @@ function App() {
         {/* <===== Layout admin =====>*/}
         <Route path='/admin' element={<Layout_Admin />} >
           <Route path='/admin' element={<Dashboard_Admin />} />
-          <Route path='/admin/list_product' element={<List_Product />} />
+          <Route path='/admin/list_product' element={<List_Product />} /> //** Có thể xóa*/
         </Route>
 
         {/* <===== Layout client =====>*/}
