@@ -19,6 +19,7 @@ import Purchased_Course from './pages/client/Purchased_Course/Purchased_Course';
 import Register from './pages/client/Register/Register';
 import Search_Page from './pages/client/Search_Page/Search_Page';
 import Histories_Transaction from './pages/teacher/Histories_Transaction/Histories_Transaction';
+import Form_Course_Admin from './components/admin/Form_Course/Form_Course';
 
 function App() {
 
@@ -41,6 +42,8 @@ function App() {
         <Route path='/admin' element={<Layout_Admin />} >
           <Route path='/admin' element={<Dashboard_Admin />} />
           <Route path='/admin/list_product' element={<List_Product />} /> //** Có thể xóa*/
+          <Route path='/admin/form_course_add' element={<Form_Course_Admin />} />
+          <Route path='/admin/form_course_edit/:id' element={<Form_Course_Admin />} />
         </Route>
 
         {/* <===== Layout client =====>*/}
