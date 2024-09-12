@@ -1,0 +1,43 @@
+.container {
+  .title {
+    color: #c67d39;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .btn {
+    background: #c67d39;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  label {
+    font-size: 16px;
+  }
+
+  .thumbnail-upload {
+    .thumbnail-label {
+      font-size: 16px;
+      display: block;
+    }
+
+    .uploader {
+      border: 2px dashed #ccc;
+      border-radius: 10px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+
+      &:hover {
+        border-color: #40a9ff;
+      }
+
+      .upload-icon {
+        font-size: 40px;
+        color: #999;
+      }
+    }
+  }
+}
