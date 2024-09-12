@@ -108,8 +108,20 @@ const Form_Course_Admin = () => {
                             style={{ width: '100%' }}
                             dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                         >
-                            <TreeNode value="hoat_dong" title="Hoạt động"/>
+                            <TreeNode value="hoat_dong" title="Hoạt động" />
                             <TreeNode value="ngung_hoat_dong" title="Ngừng hoạt động" />
+                        </TreeSelect>
+                    </div>
+                    <div className="flex flex-col gap-2 ">
+                        <label>Danh Mục</label>
+                        <TreeSelect
+                            showSearch
+                            className="w-1/2 h-[70px] border border-black rounded-[8px]"
+                            // defaultValue=""
+                            style={{ width: '100%' }}
+                            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                        >
+                            <TreeNode value="tai_xiu" title="Tài xỉu kế toán" />
                         </TreeSelect>
                     </div>
                 </div>
