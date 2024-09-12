@@ -25,6 +25,7 @@ import FormSubmitCategory from './pages/admin/Categories/FormSubmitCategory/Form
 import List_Categories from './pages/admin/Categories/ListCategories/List_Categories';
 import Add_Lesson_Admin from './components/admin/Add_Lesson/Add_Lesson';
 import Add_Lesson_Teacher from './components/teacher/Add_Lesson/Add_Lesson';
+import Categories_Course from './pages/client/Categories_Course/Categories_Course';
 
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
           <Route path='/purchased_course' element={<Purchased_Course />} />
           <Route path='/history_payment' element={<Payment_History />} />
           <Route path='/course/details/:id' element={<Course_Detail />} />
+          <Route path='/categories_course' element={<Categories_Course />} />
         </Route>
 
         {/* <===== Role Teacher =====> */}
