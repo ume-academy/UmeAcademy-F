@@ -5,7 +5,7 @@ const Card = () => {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
-        <div className="flex flex-wrap justify-center mt-10 gap-8">
+        <div className="flex flex-wrap justify-center mt-15 gap-[59px]">
             <div className="w-[289px] h-[449px] rounded-lg hover:shadow-xl shadow-md overflow-hidden transform transition-transform duration-300 hover:translate-y-[-7px] cursor-pointer">
                 <div className="bg-[#D9D9D9] h-[210px] text-[18px] flex items-center font-bold justify-center">
                     Banner
