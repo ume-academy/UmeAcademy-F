@@ -1,10 +1,11 @@
-import { Button, Input, Upload } from "antd";
+import { Button, Input, Upload, UploadFile } from "antd";
 import { DeleteOutlined, DownOutlined, UpOutlined, PlusOutlined, UploadOutlined } from "@ant-design/icons";
 import { useState } from "react";
 import styles from './add.module.scss'
 
 const Add_Lesson = () => {
     const [lessons, setLessons] = useState([{ id: 1, isUpload: false }]);
+    const fileList: UploadFile[] = []
 
     // Thêm bài học mới khi nhấn "Thêm mới khóa học"
     const addNewLesson = () => {
@@ -53,8 +54,10 @@ const Add_Lesson = () => {
                 </Button>
             </div>
             {lesson.isUpload && (
-                <div className="mt-4">
-                    <Upload className="">
+                <div className="mt-4 w-[593px] ">
+                    <Upload className="" action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                        listType="picture"
+                        defaultFileList={fileList}>
                         <Button icon={<UploadOutlined />} className="w-[593px] h-[40px]">
                             Upload
                         </Button>
@@ -79,21 +82,21 @@ const Add_Lesson = () => {
                 </Button>
             </div>
             {lessons.map((lesson, index) => renderLesson(lesson, index))}
-            <div className="mt-10">
+            <div className="mt-10 w-[950px]">
                 <div className="flex flex-col gap-2">
                     <label>Tên bài học <span className="text-red-600">*</span></label>
                     <Input className="mb-5 w-[950px] h-[60px] border border-black" />
                 </div>
-                <Upload>
+                <Upload listType="picture">
                     <Button icon={<UploadOutlined />} className="w-[950px] h-[40px]">
                         Tải lên Video
                     </Button>
                 </Upload>
-                <div className="flex justify-end mt-16 mb-16">
-                    <Button className={`${styles['btn']} w-[264px] h-[70px]`}>
-                        Lưu
-                    </Button>
-                </div>
+            </div>
+            <div className="flex justify-end mt-16 mb-16">
+                <Button className={`${styles['btn']} w-[264px] h-[70px]`}>
+                    Lưu
+                </Button>
             </div>
         </form>
     );
