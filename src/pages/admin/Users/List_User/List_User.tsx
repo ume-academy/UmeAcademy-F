@@ -144,7 +144,7 @@ const List_Users = () => {
     return (
         <>
             <div className={`${styles['heading']} text-2xl font-bold mb-6`}>
-                <h3>Danh sách khóa học</h3>
+                <h3>Danh sách người dùng</h3>
             </div>
 
             <Table
