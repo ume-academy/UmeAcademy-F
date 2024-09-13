@@ -1,0 +1,59 @@
+.heading {
+    color: #C67D39;
+}
+
+.actions {
+
+
+    .searchBar {
+        flex: 1;
+        position: relative;
+
+        input {
+            width: 100%;
+            border: 1px solid rgb(194, 193, 193);
+            outline: none;
+            height: 100%;
+            font-weight: 500;
+        }
+
+        .searchIcon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            // width: 100%;
+            display: flex;
+            align-items: center;
+            // padding: 10px;
+            cursor: pointer;
+        }
+    }
+
+    .add {
+        .btn {
+            background-color: #C67D39;
+            color: #fff;
+            height: 100%;
+        }
+    }
+}
+
+
+.btnGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+
+    div {
+        flex: 1;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        border: none;
+    }
+
+    
+}
