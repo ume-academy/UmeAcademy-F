@@ -12,19 +12,14 @@ const Layout_Teacher = () => {
 
     return (
         <>
-            {/* Header Teacher */}
-            <Header_Teacher />
-
-
             <Layout style={{ minHeight: '100vh' }}>
-
-
 
                 {/* Side bar Teacher */}
                 <Sidebar_Teacher />
 
                 <Layout>
-
+                    {/* Header Teacher */}
+                    <Header_Teacher />
 
                     <Content style={{ margin: '0 16px' }}>
                         {/* <Breadcrumb style={{ margin: '16px 0' }}>

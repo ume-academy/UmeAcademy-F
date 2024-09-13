@@ -7,11 +7,7 @@ import styles from './header.module.scss';
 const Header_Teacher = () => {
     return (
         <>
-            <Header className={`${styles['header']} flex justify-between items-center`} >
-                <div className="logo">
-                    Logo
-                </div>
-
+            <Header className={`${styles['header']} flex justify-end items-center`} >
                 <div className="">
                     <Button className="flex items-center justify-start border-[1px] border-[#C5C5C5] p-2 h-[46px] rounded-[14px] min-w-[180px]">
                         <Avatar size="small" icon={<UserOutlined />} />

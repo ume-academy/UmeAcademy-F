@@ -187,9 +187,11 @@ const List_Courses_Teacher = () => {
 
                 <div className={`${styles['add']}`}>
                     <Button className={`${styles['btn']} font-semibold py-2`}>
-                        Thêm khóa học
+                        <Link to={'/teacher/form_course_add'}>
+                            Thêm khóa học
 
-                        <PlusOutlined />
+                            <PlusOutlined className='pl-2'/>
+                        </Link>
                     </Button>
                 </div>
             </div>

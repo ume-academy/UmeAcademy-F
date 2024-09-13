@@ -38,3 +38,7 @@ export const routeConfig = {
 
 // 404 Not Found img
 export const notFoundImg = './src/assets/images/client/NotFound/notfound.png';
+
+
+// Logo teacher
+export const logoTeacher = './src/assets/images/teacher/logo_teacher_white-removebg.png';
