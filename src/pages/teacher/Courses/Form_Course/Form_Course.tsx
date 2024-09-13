@@ -3,7 +3,7 @@ import { CameraOutlined, CloudUploadOutlined } from '@ant-design/icons';
 import styles from './form_course.module.scss';
 import Dragger from 'antd/es/upload/Dragger';
 
-const Form_Course = () => {
+const Form_Course_Teacher = () => {
     const { TreeNode } = TreeSelect;
     const fileList: UploadFile[] = []
     const id = 0
@@ -99,6 +99,18 @@ const Form_Course = () => {
                         <label>Giá tiền</label>
                         <Input type='number' className="h-[70px] border border-black rounded-[8px]" />
                     </div>
+                    <div className="flex flex-col gap-2 ">
+                        <label>Danh Mục</label>
+                        <TreeSelect
+                            showSearch
+                            className="w-1/2 h-[70px] border border-black rounded-[8px]"
+                            // defaultValue=""
+                            style={{ width: '100%' }}
+                            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                        >
+                            <TreeNode value="tai_xiu" title="Tài xỉu kế toán" />
+                        </TreeSelect>
+                    </div>
                 </div>
             </div>
 
@@ -109,4 +121,4 @@ const Form_Course = () => {
     );
 };
 
-export default Form_Course;
+export default Form_Course_Teacher;

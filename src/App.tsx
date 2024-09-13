@@ -1,10 +1,6 @@
 import { useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.scss';
-import Add_Lesson_Admin from './components/admin/Add_Lesson/Add_Lesson';
-import Form_Course_Admin from './components/admin/Form_Course/Form_Course';
-import Add_Lesson_Teacher from './components/teacher/Add_Lesson/Add_Lesson';
-import Form_Course from './components/teacher/Form_Course/Form_Course';
 import Layout_Admin from './layouts/Layout_Admin';
 import Layout_Client from './layouts/Layout_Client';
 import Layout_Teacher from './layouts/Layout_Teacher';
@@ -20,14 +16,18 @@ import Content_Course_Page from './pages/client/Courses/Content_Course_Page/Cont
 import Course_Detail from './pages/client/Courses/Details/Course_Detail';
 import Payment_History from './pages/client/History_Payment_Page/Payment_History';
 import Home_Page from './pages/client/Home_Page/Home_Page';
+import Dashboard_Teacher from './pages/teacher/Dashboard/Dashboard';
+import List_Courses_Teacher from './pages/teacher/Courses/List_Course/List_Courses';
 import NotFound from './pages/client/NotFound/NotFound';
 import Purchased_Course from './pages/client/Purchased_Course/Purchased_Course';
 import Register from './pages/client/Register/Register';
 import Search_Page from './pages/client/Search_Page/Search_Page';
-import List_Courses_Teacher from './pages/teacher/Courses/List/List_Courses';
-import Dashboard_Teacher from './pages/teacher/Dashboard/Dashboard';
 import Histories_Transaction_Teacher from './pages/teacher/Histories_Transaction/Histories_Transaction';
 import List_Categories from './pages/admin/Categories/List_Categories/List_Categories';
+import Form_Course_Admin from './pages/admin/Teacher/Form_Course/Form_Course';
+import Add_Lesson_Teacher from './pages/teacher/Courses/Add_Lesson/Add_Lesson';
+import Add_Lesson_Admin from './pages/admin/Teacher/Add_Lesson/Add_Lesson';
+import Form_Course_Teacher from './pages/teacher/Courses/Form_Course/Form_Course';
 
 
 function App() {
@@ -89,8 +89,8 @@ function App() {
           <Route path='/teacher/courses' element={<List_Courses_Teacher />} />
           <Route path='/teacher/add_lesson' element={<Add_Lesson_Teacher />} />
           <Route path='/teacher/histories_transaction' element={<Histories_Transaction_Teacher />} />
-          <Route path='/teacher/form_course_add' element={<Form_Course />} />
-          <Route path='/teacher/form_course_edit/:id' element={<Form_Course />} />
+          <Route path='/teacher/form_course_add' element={<Form_Course_Teacher />} />
+          <Route path='/teacher/form_course_edit/:id' element={<Form_Course_Teacher />} />
         </Route>
 
         {/* <===== Auth =====>*/}
