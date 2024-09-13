@@ -4,8 +4,14 @@ import './App.scss';
 import Layout_Admin from './layouts/Layout_Admin';
 import Layout_Client from './layouts/Layout_Client';
 import Layout_Teacher from './layouts/Layout_Teacher';
+import Form_Submit_Category from './pages/admin/Categories/Form_Submit_Category/Form_Submit_Category';
 import Dashboard_Admin from './pages/admin/Dashboard/Dashboard';
+import Histories_Transaction_Admin from './pages/admin/List_Histories_Transaction/Histories_Transaction';
+import List_Courses_Admin from './pages/admin/Teacher/List_Courses/List_Courses';
+import Form_Submit_User from './pages/admin/Users/Form_SubmitUser/Form_Submit_User';
+import List_User from './pages/admin/Users/List_User/List_User';
 import Login from './pages/auth/Login/Login';
+import Categories_Course from './pages/client/Categories_Course/Categories_Course';
 import Content_Course_Page from './pages/client/Courses/Content_Course_Page/Content_Course_Page';
 import Course_Detail from './pages/client/Courses/Details/Course_Detail';
 import Payment_History from './pages/client/History_Payment_Page/Payment_History';
@@ -16,16 +22,11 @@ import NotFound from './pages/client/NotFound/NotFound';
 import Purchased_Course from './pages/client/Purchased_Course/Purchased_Course';
 import Register from './pages/client/Register/Register';
 import Search_Page from './pages/client/Search_Page/Search_Page';
-import FormSubmitUser from './pages/admin/Users/FormSubmitUser/FormSubmitUser';
 import Histories_Transaction_Teacher from './pages/teacher/Histories_Transaction/Histories_Transaction';
+import List_Categories from './pages/admin/Categories/List_Categories/List_Categories';
 import Form_Course_Admin from './pages/admin/Teacher/Form_Course/Form_Course';
-import Histories_Transaction_Admin from './pages/admin/List_Histories_Transaction/Histories_Transaction';
-import FormSubmitCategory from './pages/admin/Categories/FormSubmitCategory/FormSubmitCategory';
-import List_Categories from './pages/admin/Categories/ListCategories/List_Categories';
 import Add_Lesson_Teacher from './pages/teacher/Courses/Add_Lesson/Add_Lesson';
-import List_Courses_Admin from './pages/admin/Teacher/List_Courses/List_Courses';
 import Add_Lesson_Admin from './pages/admin/Teacher/Add_Lesson/Add_Lesson';
-import Categories_Course from './pages/client/Categories_Course/Categories_Course';
 import Form_Course_Teacher from './pages/teacher/Courses/Form_Course/Form_Course';
 
 
@@ -51,16 +52,17 @@ function App() {
           <Route path='/admin' element={<Dashboard_Admin />} />
 
           {/* <===== Users =====> */}
-          <Route path='/admin/create_user' element={<FormSubmitUser />} />
-          <Route path='/admin/update_user/:id' element={<FormSubmitUser />} />
+          <Route path='/admin/create_user' element={<Form_Submit_User />} />
+          <Route path='/admin/update_user/:id' element={<Form_Submit_User />} />
+          <Route path='/admin/list_user' element={<List_User />} />
 
           {/* Categories's route */}
           <Route path='/admin/categories' element={<List_Categories />} />
-          <Route path='/admin/create_category' element={<FormSubmitCategory />} />
-          <Route path='/admin/update_category/:id' element={<FormSubmitCategory />} />
+          <Route path='/admin/create_category' element={<Form_Submit_Category />} />
+          <Route path='/admin/update_category/:id' element={<Form_Submit_Category />} />
 
           {/* <===== Teacher =====> */}
-          <Route path='/admin/course' element={<List_Courses_Admin />} />
+          <Route path='/admin/courses' element={<List_Courses_Admin />} />
           <Route path='/admin/add_lesson' element={<Add_Lesson_Admin />} />
           <Route path='/admin/form_course_add' element={<Form_Course_Admin />} />
           <Route path='/admin/form_course_edit/:id' element={<Form_Course_Admin />} />

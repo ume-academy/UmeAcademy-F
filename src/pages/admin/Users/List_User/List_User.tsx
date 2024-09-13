@@ -1,7 +1,10 @@
-import { Image, Table, TableColumnsType, TableProps, Tag } from 'antd';
-import styles from './list_courses.module.scss';
-import { Link } from 'react-router-dom';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
+import { Image, Table, TableColumnsType, TableProps, Tag } from 'antd';
+import React from 'react'
+import { Link } from 'react-router-dom';
+import styles from './list_user.module.scss';
+
+
 type OnChange = NonNullable<TableProps<DataType>['onChange']>;
 type Filters = Parameters<OnChange>[1];
 
@@ -10,11 +13,9 @@ interface DataType {
     key: string;
     id: number;
     name: string;
-    thumbnail: string;
-    price: number;
+    email: string;
+    permission: number;
     createdAt: string;
-    numberOfStudent: string,
-    status: number,
 }
 
 // nút chọn select
@@ -27,46 +28,42 @@ const data: DataType[] = [
     {
         key: '1',
         id: 1,
-        name: 'JavaScript Cơ bản',
-        thumbnail: 'https://picsum.photos/200/200',
-        price: 100000,
+
+        name: 'Nguyễn Văn JavaScript',
+        email: 'nguyentrungduc2807@gmail.com',
+        permission: 0,
         createdAt: '10/11/1000', // fix cứng
-        numberOfStudent: '50',
-        status: 0
     },
     {
         key: '2',
         id: 2,
-        name: 'JavaScript Cơ bản',
-        thumbnail: 'https://picsum.photos/200/200',
-        price: 100000,
+
+        name: 'Nguyễn Văn Php',
+        email: 'nguyentrungduc2807@gmail.com',
+        permission: 1,
         createdAt: '10/11/1000', // fix cứng
-        numberOfStudent: '50',
-        status: 2
     },
     {
         key: '3',
         id: 3,
-        name: 'ReactJs cơ bản',
-        thumbnail: '',
-        price: 250000,
-        createdAt: 'VNPay', // fix cứng
-        numberOfStudent: '510',
-        status: 1
+
+        name: 'Nguyễn Văn Pythỏn',
+        email: 'nguyentrungduc2807@gmail.com',
+        permission: 2,
+        createdAt: '10/11/1000', // fix cứng
     },
     {
         key: '4',
         id: 4,
-        name: 'ReactJs cơ bản',
-        thumbnail: '',
-        price: 250000,
-        createdAt: 'VNPay', // fix cứng
-        numberOfStudent: '10',
-        status: 2
+
+        name: 'Nguyễn Văn C+-',
+        email: 'nguyentrungduc2807@gmail.com',
+        permission: 3,
+        createdAt: '10/11/1000', // fix cứng
     }
 ];
 
-const List_Courses = () => {
+const List_Users = () => {
 
     const handleChange: OnChange = (pagination) => {
         console.log('Various parameters', pagination);
@@ -82,31 +79,41 @@ const List_Courses = () => {
         width: 60
       },
       {
-        title: <div className="text-center">Tên khóa học</div>,
+        title: <div className="text-center">Họ và tên</div>,
         dataIndex: "name",
         key: "name",
         ellipsis: true,
         align: "center",
       },
       {
-        title: <div className="text-center">Ảnh</div>,
-        dataIndex: "thumbnail",
-        key: "thumbnail",
-        render: (thumbnail: string) => (
-          <Image
-            width={100}
-            src={thumbnail || 'https://www.nicety.com.vn/admin/assets/images/404.png'}
-          />
-        ),
+        title: <div className="text-center">Email</div>,
+        dataIndex: "email",
+        key: "email",
         ellipsis: true,
         align: "center",
       },
       {
-        title: <div className="text-center">Giá</div>,
-        dataIndex: "price",
-        key: "price",
+        title: <div className="text-center">Quyền</div>,
+        dataIndex: "permission",
+        key: "permission",
+        render: (_: any, item) => (
+            <div className="text-center">
+                {
+                    item.permission === 0 ? (
+                        <Tag color={'green'}>Admin</Tag>
+                    ) : item.permission === 1 ? (
+                        <Tag color={'blue'}>Khách hàng</Tag>
+                    ) :  item.permission === 2 ?(
+                        <Tag color={'orange'}>QTV</Tag>
+                    ) : (
+                        <Tag color={'red'}>Giảng viên</Tag>
+                    )
+                }
+            </div>
+        ),
         ellipsis: true,
         align: "center",
+        width:100
       },
       {
         title: "Ngày tạo",
@@ -116,39 +123,12 @@ const List_Courses = () => {
         align: "center",
       },
       {
-        title: <div className="text-center">Số lượng HV</div>,
-        dataIndex: "numberOfStudent",
-        key: "numberOfStudent",
-        align: "center",
-        width: 140
-      },
-      {
-        title: <div className="text-center">Trạng thái</div>,
-        dataIndex: "status",
-        key: "status",
-        render: (_: any, item) => (
-            <div className="text-center">
-                {
-                    item.status === 0 ? (
-                        <Tag color={'green'}>Hoạt động</Tag>
-                    ) : item.status === 2 ? (
-                        <Tag color={'blue'}>Chờ xuất bản</Tag>
-                    ) : (
-                        <Tag color={'red'}>Ngưng hoạt động</Tag>
-                    )
-                }
-            </div>
-        ),
-        align: "center",
-        width: 140
-      },
-      {
         title: <div className="text-center">Hành động</div>,
         dataIndex: "status",
         render: (_: any, item) => (
           <div className={`${styles['btnGroup']}`}>
               <div className="">
-                  <Link to={'/admin/form_course_edit/2'} className='m-0 p-0'>
+                  <Link to={'/admin/update_user/2'} className='m-0 p-0'>
                       <EditOutlined className='flex-1 text-xl' />
                   </Link>
               </div>
@@ -180,4 +160,4 @@ const List_Courses = () => {
     )
 }
 
-export default List_Courses
+export default List_Users
