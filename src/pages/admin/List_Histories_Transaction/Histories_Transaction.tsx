@@ -1,210 +1,136 @@
-import { Table, TableColumnsType, TableProps, Tag } from 'antd';
-import { useState } from 'react';
+import { Empty, Select, Table, TableColumnsType } from 'antd';
 import styles from './histories_transaction.module.scss';
-import { Select, Space } from 'antd';
-
-
-type OnChange = NonNullable<TableProps<DataType>['onChange']>;
-type Filters = Parameters<OnChange>[1];
-
-type GetSingle<T> = T extends (infer U)[] ? U : never;
-type Sorts = GetSingle<Parameters<OnChange>[2]>;
-
-interface DataType {
-    key: string;
-    id: any;
-    title: string;
-    buyer: string;
-    totalPrice: number;
-    methodPayment: string;
-    boughtAt: string,
-    status: number,
-}
-
-// nút chọn select
-const handleChangeSelect = (value: number | string) => {
-    console.log(`selected ${value}`);
-  };
-
-// Data mẫu
-const data: DataType[] = [
-    {
-        key: '1',
-        id: 1,
-        title: 'JavaScript Cơ bản',
-        buyer: 'Thái Quốc Tuấn',
-        totalPrice: 100000,
-        methodPayment: 'VNPay', // fix cứng
-        boughtAt: '10/9/2024',
-        status: 0
-    },
-    {
-        key: '2',
-        id: 2,
-        title: 'JavaScript Nâng cao',
-        buyer: 'Thái Quốc Tuấn',
-        totalPrice: 150000,
-        methodPayment: 'VNPay', // fix cứng
-        boughtAt: '10/9/2024',
-        status: 1
-    },
-    {
-        key: '3',
-        id: 3,
-        title: 'ReactJs cơ bản',
-        buyer: 'Thái Quốc Tuấn',
-        totalPrice: 250000,
-        methodPayment: 'VNPay', // fix cứng
-        boughtAt: '10/9/2024',
-        status: 2
-    },
-    {
-        key: '4',
-        id: 4,
-        title: 'ReactJs cơ bản',
-        buyer: 'Thái Quốc Tuấn',
-        totalPrice: 250000,
-        methodPayment: 'VNPay', // fix cứng
-        boughtAt: '10/9/2024',
-        status: 1
-    }
-];
+import { Ttransaction } from '../../../interface/Ttransaction';
+import { useContext } from 'react';
+import { Transaction_Context, Transaction_Context_Type } from '../../../contexts/transaction_context';
 
 const Histories_Transaction = () => {
-    const [filteredInfo, setFilteredInfo] = useState<Filters>({});
-    const [sortedInfo, setSortedInfo] = useState<Sorts>({});
+  const { state, updateTransactionStatus } = useContext(Transaction_Context) as Transaction_Context_Type;
+  const { Option } = Select;
 
-    const handleChange: OnChange = (pagination, filters, sorter) => {
-        console.log('Various parameters', pagination, filters, sorter);
-        setFilteredInfo(filters);
-        setSortedInfo(sorter as Sorts);
-    };
+  const columnWidth = 150;
+  const columns: TableColumnsType<Ttransaction> = [
+    {
+      title: "ID",
+      dataIndex: "id",
+      key: "id",
+      ellipsis: true,
+      align: "center",
+      width: 50
+    },
+    {
+      title: "Tên khóa học",
+      dataIndex: "course",
+      key: "course",
+      ellipsis: true,
+      align: "center",
+      width: columnWidth,
+      render: (course: { title: string }) => {
+        return course.title
+      }
+    },
+    {
+      title: "Mã đơn hàng",
+      dataIndex: "code",
+      key: "code",
+      ellipsis: true,
+      align: "center",
+      width: columnWidth
+    },
+    {
+      title: "Học viên",
+      dataIndex: "user_id",
+      key: "user_id",
+      ellipsis: true,
+      align: "center",
+      width: columnWidth
+    },
+    {
+      title: "Tổng tiền",
+      dataIndex: "total_price",
+      key: "total_price",
+      ellipsis: true,
+      align: "center",
+      width: columnWidth
+    },
+    {
+      title: "Phương thức thanh toán",
+      dataIndex: "payment_method_id",
+      key: "payment_method_id",
+      render: (payment_method_id) => {
+        const methods: { [key: number]: string } = {
+          1: "VNPay",
+          2: "Credit Card",
+          3: "Nợ",
+        };
+        return methods[payment_method_id];
+      },
+      align: "center",
+      width: columnWidth
+    },
 
-
-    const columns: TableColumnsType<DataType> = [
-      {
-        title: "ID",
-        dataIndex: "id",
-        key: "id",
-        sorter: (a, b) => a.id - b.id,
-        sortOrder: sortedInfo.columnKey === "id" ? sortedInfo.order : null,
-        ellipsis: true,
-        align: "center",
-        width: 80
+    {
+      title: "Ngày thanh toán",
+      dataIndex: "date",
+      key: "date",
+      render: (date) => {
+        const formattedDate = new Date(date).toLocaleDateString('vi-VN');
+        return formattedDate;
       },
-      {
-        title: <div className="text-center">Tên khóa học</div>,
-        dataIndex: "title",
-        key: "title",
-        filters: [
-          // { text: 'Joe', value: 'Joe' },
-          // { text: 'Jim', value: 'Jim' },
-        ],
-        filteredValue: filteredInfo.title || null,
-        onFilter: (value, record) => record.title.includes(value as string),
-        sorter: (a, b) => a.title.length - b.title.length,
-        sortOrder: sortedInfo.columnKey === "title" ? sortedInfo.order : null,
-        ellipsis: true,
-        align: "center",
-      },
-      {
-        title: <div className="text-center">Giảng viên</div>,
-        dataIndex: "title",
-        key: "title",
-        filters: [
-          // { text: 'Joe', value: 'Joe' },
-          // { text: 'Jim', value: 'Jim' },
-        ],
-        filteredValue: filteredInfo.title || null,
-        onFilter: (value, record) => record.title.includes(value as string),
-        sorter: (a, b) => a.title.length - b.title.length,
-        sortOrder: sortedInfo.columnKey === "title" ? sortedInfo.order : null,
-        ellipsis: true,
-        align: "center",
-      },
-      {
-        title: <div className="text-center">Người mua</div>,
-        dataIndex: "buyer",
-        key: "buyer",
-        filters: [
-          // { text: 'Joe', value: 'Joe' },
-          // { text: 'Jim', value: 'Jim' },
-        ],
-        filteredValue: filteredInfo.buyer || null,
-        onFilter: (value, record) => record.buyer.includes(value as string),
-        sorter: (a, b) => a.buyer.length - b.buyer.length,
-        sortOrder: sortedInfo.columnKey === "buyer" ? sortedInfo.order : null,
-        ellipsis: true,
-        align: "center",
-      },
-      {
-        title: "Tổng tiền",
-        dataIndex: "totalPrice",
-        key: "totalPrice",
-        sorter: (a, b) => a.totalPrice - b.totalPrice,
-        sortOrder:
-          sortedInfo.columnKey === "totalPrice" ? sortedInfo.order : null,
-        ellipsis: true,
-        align: "center",
-      },
-      {
-        title: <div className="text-center">Phương thức</div>,
-        dataIndex: "methodPayment",
-        key: "methodPayment",
-        align: "center",
-        width: 140
-      },
-      {
-        title: <div className="text-center">Ngày thanh toán</div>,
-        dataIndex: "boughtAt",
-        key: "boughtAt",
-        align: "center",
-        width: 140
-
-      },
-      {
-        title: <div className="text-center">Trạng thái</div>,
-        dataIndex: "status",
-        key: "status",
-        render: (_: any, item) => (
-          <div className="text-center">
-            <Space wrap>
-              <Select
-                defaultValue={'disabled'}
-                style={{ width: 130 }}
-                onChange={handleChangeSelect}
-                options={[
-                  { value: 'disabled', label: 'Vui lòng chọn', disabled: true },
-                  { value: 1, label: "Đã thanh toán" },
-                  { value: 2, label: "Đã hủy" },
-                  { value: 3, label: "Chờ thanh toán" }
-                ]}
-              />
-            </Space>
-          </div>
-        ),
-      },
-    ];
+      ellipsis: true,
+      align: "center",
+      width: columnWidth
+    },
+    {
+      title: "Trạng thái",
+      dataIndex: "status",
+      key: "status",
+      render: (status: number, record: Ttransaction) => {
+        const handleChange = (value: number) => {
+          if (record.id) {
+            updateTransactionStatus(record.id, value)
+          }
+        }
 
 
+        return (
+          <Select
+            value={status}
+            onChange={handleChange}
+            style={{ width: 150 }}
+          >
+            <Option value={0}>Đã hủy</Option>
+            <Option value={1}>Chờ thanh toán</Option>
+            <Option value={2}>Đã thanh toán</Option>
+          </Select>
+        )
+      },
+      align: "center",
+      width: columnWidth
+    },
+  ];
 
-    return (
-        <>
-            <div className={`${styles['heading']} text-2xl font-bold mb-6`}>
-                <h3>Lịch sử giao dịch</h3>
-            </div>
-
-            <Table
-                columns={columns}
-                dataSource={data}
-                onChange={handleChange}
-                pagination={{
-                    pageSize: 1, //Số lượng bản ghi mỗi trang
-                    total: data.length, // Tổng số bản ghi
-                }}
-            />
-        </>
-    )
+  return (
+    <>
+      <div>
+        <div className={`${styles['heading']}  text-2xl font-bold mb-6`}>
+          <h3>Lịch sử giao dịch</h3>
+        </div>
+        {state.transactions.length > 0 ? (
+          <Table
+            columns={columns}
+            dataSource={state.transactions}
+            rowKey="id"
+            pagination={{
+              pageSize: 8,
+              total: state.transactions.length,
+            }}
+          />) :
+          (<Empty description="Không có lịch sử giao dịch nào" />)
+        }
+      </div>
+    </>
+  );
 }
 
-export default Histories_Transaction
+export default Histories_Transaction;
