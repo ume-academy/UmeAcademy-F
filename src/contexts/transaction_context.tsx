@@ -2,6 +2,7 @@ import { createContext, Dispatch, useEffect, useReducer, ReactNode } from "react
 import { Ttransaction } from "../interface/Ttransaction";
 import { Action, transaction_reducer } from "../reducers/transaction_reducer";
 import instance from "../api";
+import { message } from "antd";
 
 export interface Transaction_Context_Type {
     state: { transactions: Ttransaction[] }
@@ -43,7 +44,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
                 type: "UPDATE_TRANSACTION_STATUS",
                 payload: { id, status }
             })
-            alert("Thay đổi trạng thái thành công!")
+            message.success("Thay đổi trạng thái thành công");
         } catch (error) {
             console.log(error)
         }

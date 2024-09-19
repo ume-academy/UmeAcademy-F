@@ -19,7 +19,7 @@ const Histories_Transaction = () => {
             key: "id",
             ellipsis: true,
             align: "center",
-            width: 90
+            width: 60
         },
         {
             title: "Tên khóa học",
@@ -49,7 +49,7 @@ const Histories_Transaction = () => {
             width: columnWidth
         },
         {
-            title: "Phương thức thanh toán",
+            title: "Phương thức",
             dataIndex: "payment_method_id",
             key: "payment_method_id",
             render: (payment_method_id) => {

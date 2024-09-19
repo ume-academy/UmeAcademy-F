@@ -54,7 +54,7 @@ const Histories_Transaction = () => {
       width: columnWidth
     },
     {
-      title: "Phương thức thanh toán",
+      title: "Phương thức",
       dataIndex: "payment_method_id",
       key: "payment_method_id",
       render: (payment_method_id) => {
