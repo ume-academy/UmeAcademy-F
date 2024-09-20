@@ -1,16 +1,37 @@
-import { Button, Input, TreeSelect, Upload, UploadFile } from 'antd';
-import { CameraOutlined, CloudUploadOutlined } from '@ant-design/icons';
+import { CloudUploadOutlined } from '@ant-design/icons';
+import { Button, Image, Input, TreeSelect, Upload } from 'antd';
+import { useContext, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
+import { CourseContext, CourseContextType } from '../../../../contexts/course_context';
+import { LevelContext, LevelContextType } from '../../../../contexts/level_context';
+import { Tcourse } from '../../../../interface/Tcourse';
+import { LanguageContext, LanguageContextType } from './../../../../contexts/language_context';
 import styles from './form_course.module.scss';
-import Dragger from 'antd/es/upload/Dragger';
 
 const Form_Course_Admin = () => {
-    const { TreeNode } = TreeSelect;
-    const fileList: UploadFile[] = []
-    const id = 0
+    const {level} = useContext(LevelContext) as LevelContextType //Context level
+    const {language} = useContext(LanguageContext) as LanguageContextType //Context language
+    const {handleForm} = useContext(CourseContext) as CourseContextType //Context language
+    const { TreeNode } = TreeSelect; 
+    const {id} = useParams() //lấy params từ trên url
+
+    const {register, handleSubmit, control, reset, formState: {errors}} = useForm<Tcourse>({
+        defaultValues: {
+          thumbnail: null, // Khởi tạo giá trị mặc định của fileList thuộc upload file antd là mảng rỗng 
+        },
+    })
+
+    const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null) // set ảnh khi upload lên đưa vào preview
+
+    const onsubmit = (data: Tcourse) => {
+        handleForm(data)
+    }
+
     return (
-        <form className={`${styles['container']} p-5`}>
+        <form onSubmit={handleSubmit(onsubmit)} className={`${styles['container']} p-5`}>
             <div className="flex justify-between items-center mb-10">
-                <h1 className={`${styles['title']}`}>{id ? "" : "Thêm mới khóa học"}</h1>
+                <h1 className={`${styles['title']}`}>{id ? "Cập nhật khóa học" : "Thêm mới khóa học"}</h1>
             </div>
             <div className='flex items-center gap-5'>
                 <div>
@@ -28,107 +49,202 @@ const Form_Course_Admin = () => {
                 <div className="w-1/2">
                     <div className="flex flex-col gap-2 mb-5">
                         <label>Tên khóa học</label>
-                        <Input className="h-[70px] border border-black rounded-[8px]" />
+                        <Controller
+                            name="title"
+                            control={control}  // 'control' phải được khai báo từ useForm()
+                            render={({ field }) => (
+                            <Input 
+                                className="h-[70px] border border-black rounded-[8px] text-[22px]" 
+                                {...field}  //field gán các thuộc tính cần thiết cho Input
+                            />
+                            )}
+                        />
                     </div>
                     <div>
-                        <label>Upload video</label>
+                        <label>Upload ảnh</label>
                         <div className="w-[450px] h-auto mt-4">
-                            <Dragger
-                                name="files"
-                                action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                                listType="picture"
-                                defaultFileList={fileList}
-                            >
-                                <div className='p-5'>
-                                    <p className="pb-4">
-                                        <CloudUploadOutlined className="text-[60px] text-[#C67D39]" />
-                                    </p>
-                                    <b className="text-[16px] ">Drag & drop files or <span className='text-[#C67D39] underline'>Browse</span></b>
-                                    <p className='text-[12px] text-[#676767] pt-4'>Supported formates: JPEG, PNG, GIF, MP4, PDF, PSD, AI, Word, PPT</p>
-                                </div>
-                            </Dragger>
+                            <Controller 
+                                name='thumbnail'
+                                control={ control }
+                                render={({ field }) => (
+                                    <Upload.Dragger
+                                        name="file"
+                                        listType="picture"
+                                        fileList={field.value ? [field.value] : []}  // Nếu có tệp nào đã được chọn, nó sẽ hiển thị tệp đó trong danh sách. Nếu không, danh sách sẽ trống [].
+                                        onChange={({ fileList }) => {
+
+                                            // Lấy file đã upload
+                                            const file = fileList[0]; //Lấy tệp đầu tiên trong danh sách tệp mà người dùng đã upload.
+                                            field.onChange(file);
+
+                                            // Kiểm tra nếu file.originFileObj tồn tại
+                                            if (file && file.originFileObj) {
+                                                // Tạo preview URL cho file
+                                                // Sử dụng URL.createObjectURL để tạo một đường dẫn tạm thời cho tệp hình ảnh mà người dùng vừa chọn. Đường dẫn này sẽ được dùng để hiển thị ảnh.
+                                                const previewUrl = URL.createObjectURL(file.originFileObj); 
+                                                setThumbnailPreview(previewUrl); // Cập nhật trạng thái thumbnailPreview với URL mới
+                                            } else {
+                                                // Nếu không có file, xóa preview tức là set bằng null
+                                                setThumbnailPreview(null);
+                                            }
+                                        }} 
+                                        maxCount={1}
+                                        beforeUpload={() => false} // ngăn tự động tải lên
+                                    >
+                                        <div className='p-5'>   
+                                            <p className="pb-4">
+                                                <CloudUploadOutlined className="text-[60px] text-[#C67D39]" />
+                                            </p>
+                                            <b className="text-[16px] ">Drag & drop files or <span className='text-[#C67D39] underline'>Browse</span></b>
+                                            <p className='text-[12px] text-[#676767] pt-4'>Supported formates: JPEG, PNG, GIF, MP4, PDF, PSD, AI, Word, PPT</p>
+                                        </div>
+                                    </Upload.Dragger>
+                                )}
+                            />
                         </div>
                     </div>
-                    <div className={`${styles['thumbnail-upload']} w-[125px] h-[155px] mt-10 space-y-4`}>
-                        <label className={styles['thumbnail-label']}>Thumbnail</label>
-                        <Upload
-                            action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                            listType="picture"
-                            name="thumbnail"
-                            className={styles['uploader']}
-                        >
-                            <p className={styles['upload-icon']}>
-                                <CameraOutlined />
-                            </p>
-                        </Upload>
-                    </div>
+                    {thumbnailPreview && (
+                            <div className={`${styles['thumbnail-upload']} w-[125px] h-[155px] mt-10`}>
+                            <label className={` ${styles['thumbnail-label']} mb-2`}>Preview</label>
+                            <Image
+                                className='border-[1px] rounded-sm'
+                                src={thumbnailPreview} // Sử dụng URL preview để hiển thị ảnh
+                                width={300}
+                                height={"auto"}
+                            />
+                            </div>
+                        )}
                 </div>
                 <div className="w-1/2 space-y-6">
                     <div className="flex flex-col gap-2">
                         <label>Mô tả khóa học</label>
-                        <textarea className="border border-black rounded-[8px] h-[70px] p-2" />
+                        <Controller
+                            name='description'
+                            control={ control }
+                            render={({ field }) => (
+                                <textarea className="border border-black rounded-[8px] h-[70px] p-2" {...field}/>
+                            )}
+                        />
                     </div>
                     <div className="flex flex-col gap-2 ">
                         <label>Trình độ</label>
-                        <TreeSelect
-                            showSearch
-                            className="w-1/2 h-[70px] border border-black rounded-[8px]"
-                            defaultValue="DaddyGiao"
-                            style={{ width: '100%' }}
-                            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                        >
-                            <TreeNode value="giao" title="Giao" />
-                            <TreeNode value="giao-1" title="Giao 1" />
-                            <TreeNode value="dadyGiao" title="DaddyGiao" />
-                        </TreeSelect>
+                        <Controller 
+                            name='level_id'
+                            control={ control }
+                            render={({ field }) => (
+                                <TreeSelect
+                                    showSearch
+                                    className="w-1/2 h-[70px] border border-black rounded-[8px]"
+                                    defaultValue="Vui lòng chọn --"
+                                    style={{ width: '100%' }}
+                                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    filterTreeNode={(input, treeNode) =>
+                                        treeNode?.props?.title?.toLowerCase().includes(input.toLowerCase())
+                                    }
+                                >
+                                    {level.map((item) => (
+                                        <TreeNode key={item.id} value={item.id} title={item.name} {...register('level_id')}/>
+                                    ))}
+                                </TreeSelect>
+                            )}
+                        />
+                        
                     </div>
                     <div className="flex flex-col gap-2 ">
-                        <label>Quốc gia</label>
-                        <TreeSelect
-                            showSearch
-                            className="w-1/2 h-[70px] border border-black rounded-[8px]"
-                            defaultValue="Việt Nam"
-                            style={{ width: '100%' }}
-                            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                        >
-                            <TreeNode value="jav" title="Jav" />
-                            <TreeNode value="forn" title="Forn Hub" />
-                        </TreeSelect>
+                        <label>Ngôn ngữ</label>
+                        < Controller 
+                            name='language_id'
+                            control={ control }
+                            render={({ field }) => (
+                                <TreeSelect
+                                    showSearch
+                                    className="w-1/2 h-[70px] border border-black rounded-[8px]"
+                                    defaultValue="Vui lòng chọn --"
+                                    style={{ width: '100%' }}
+                                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    filterTreeNode={(input, treeNode) => 
+                                        treeNode?.props?.title?.toLowerCase().includes(input.toLowerCase())
+                                    }
+                                >
+                                    {language.map((item) => (
+                                        <TreeNode key={item.id} value={item.id} title={item.name} />
+                                    ))}
+                                </TreeSelect>
+                            )}
+                        />
+                        
                     </div>
                     <div className="flex flex-col gap-2 ">
                         <label>Giá tiền</label>
-                        <Input type='number' className="h-[70px] border border-black rounded-[8px]" />
+                        <Controller
+                            name='old_price'
+                            control={ control }
+                            render={({field}) => (
+                                <Input type='number' className="h-[70px] border border-black rounded-[8px]" {...field}/>
+                            )}
+                        />
                     </div>
                     <div className="flex flex-col gap-2 ">
                         <label>Trạng thái</label>
-                        <TreeSelect
-                            showSearch
-                            className="w-1/2 h-[70px] border border-black rounded-[8px]"
-                            defaultValue="Hoạt động"
-                            style={{ width: '100%' }}
-                            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                        >
-                            <TreeNode value="hoat_dong" title="Hoạt động" />
-                            <TreeNode value="ngung_hoat_dong" title="Ngừng hoạt động" />
-                        </TreeSelect>
+                        <Controller 
+                            name='status'
+                            control={ control }
+                            render={({ field }) => (
+                                <TreeSelect
+                                    // showSearch
+                                    className="w-1/2 h-[70px] border border-black rounded-[8px]"
+                                    defaultValue="Vui lòng chọn --"
+                                    style={{ width: '100%' }}
+                                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                    // value={field.value}
+                                    onChange={field.onChange}
+                                    filterTreeNode={(input, treeNode) =>
+                                        treeNode?.props?.title?.toLowerCase().includes(input.toLowerCase())
+                                    }
+                                >
+                                    <TreeNode value={1} title="Hoạt động" />
+                                    <TreeNode value={0} title="Ngừng hoạt động" />
+                                </TreeSelect>
+                            )}
+                        />
                     </div>
                     <div className="flex flex-col gap-2 ">
                         <label>Danh Mục</label>
-                        <TreeSelect
-                            showSearch
-                            className="w-1/2 h-[70px] border border-black rounded-[8px]"
-                            // defaultValue=""
-                            style={{ width: '100%' }}
-                            dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                        >
-                            <TreeNode value="tai_xiu" title="Tài xỉu kế toán" />
-                        </TreeSelect>
+                        <Controller 
+                            name='category_id'
+                            control={ control }
+                            render={({ field }) => (
+                                <TreeSelect
+                                    showSearch
+                                    className="w-1/2 h-[70px] border border-black rounded-[8px]"
+                                    // value={field.value}
+                                    style={{ width: '100%' }} 
+                                    dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                >
+                                    <TreeNode value={9} title="Khóa học làm mẹ thiên hạ, bố thiên nhiên" />
+                                    <TreeNode value={5} title="Khóa học giàu tình cảm" />
+                                    <TreeNode value={7} title="Khóa học làm súc vật" />
+
+
+                                </TreeSelect>
+                            )}
+                        />
+                        <input type="text" value={1} hidden {...register('user_id')} />
+                        <input type="text" value={5} hidden {...register('category_id')} />
+                        <input type="text" value={1} hidden {...register('status')} />
+
+
+
                     </div>
                 </div>
             </div>
 
             <div className="flex justify-end mt-30">
-                <Button className={`${styles['btn']} w-[264px] h-[70px]`}>Lưu</Button>
+                <Button htmlType='submit' className={`${styles['btn']} w-[264px] h-[70px]`}>Lưu</Button>
             </div>
         </form>
     );
