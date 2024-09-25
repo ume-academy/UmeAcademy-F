@@ -1,22 +1,46 @@
 import { ClockCircleOutlined, GlobalOutlined, UploadOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Rate, Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import instance from '../../../../api';
 import styles from './courseDetail.module.scss';
+import { Tcourse } from '../../../../interface/Tcourse';
+import { format } from 'date-fns';
+import { da } from 'date-fns/locale';
 const { Paragraph } = Typography;
-import { useState } from 'react';
 
 // type Props = {}
 
 const Course_Detail = () => {
+    const {id} = useParams()
+    const [course, setCourse] = useState<Tcourse | null>(null)
+
+    useEffect(() => {
+        if(id){
+            (async() => {
+                const {data} = await instance.get(`/courses/${id}`)
+                setCourse(data.data)
+            })()
+        }
+    }, [id])
 
     const [ellipsis, setEllipsis] = useState(true);
+    const toggleEllipsis = () => {
+        setEllipsis(!ellipsis); // Thay đổi trạng thái khi bấm vào "Read more"
+    };
+
+    // Định dạng create_at
+    const formartCreateAt = (date: string | undefined) => {
+        if(!date) return 'Đang cập nhật'
+        return format(new Date(date), 'dd-mm-yyyy')
+    }
 
     return (
         <div className='container mx-auto'>
             <div className={`${styles['mainContent']}  rounded-3xl p-6 my-10`}>
                 {/* Tiêu đề */}
                 <div className={`${styles['heading']}`}>
-                    <h3 className='text-3xl'>LẬP TRÌNH JAVASCRIPT</h3>
+                    <h3 className='text-3xl'>{course?.title}</h3>
                 </div>
 
                 {/* Nội dung */}
@@ -37,16 +61,16 @@ const Course_Detail = () => {
                     <div className={`${styles['infoCourse']} p-4`}>
                         <ul>
                             <li>
-                                <UserOutlined /> <b>Creator:</b> <Link to={''} className={`${styles['path']} underline`}>Thái Quốc Tuấn</Link>
+                                <UserOutlined /> <b>Creator:</b> <Link to={''} className={`${styles['path']} underline`}>{course?.teacher.fullname}</Link>
                             </li>
                             <li>
-                                <UploadOutlined /> <b>Upload On:</b> <Link to={''} className={`${styles['path']}`}>23/08/2024</Link>
+                                <UploadOutlined /> <b>Upload On:</b> <Link to={''} className={`${styles['path']}`}>{formartCreateAt(course?.created_at)}</Link>
                             </li>
                             <li>
                                 <ClockCircleOutlined /> <b>Duration:</b> <Link to={''} className={`${styles['path']}`}>25 mins</Link>
                             </li>
                             <li>
-                                <GlobalOutlined /> <b>Language:</b> <Link to={''} className={`${styles['path']}`}>Vietnamese</Link>
+                                <GlobalOutlined /> <b>Language:</b> <Link to={''} className={`${styles['path']}`}>{typeof course?.information?.language.name === 'string' ? course?.information?.language?.name : 'Đang cập nhật'}</Link>
                             </li>
                         </ul>
                     </div>
@@ -68,10 +92,7 @@ const Course_Detail = () => {
 
                     <div className="para text-justify py-3">
                         <Paragraph ellipsis={ellipsis ? { rows: 2, expandable: true, symbol: 'Read more' } : false} className='text-md'>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae nesciunt facere nostrum harum laudantium ipsam perspiciatis sunt id cumque voluptas, nobis dolores consequatur, porro neque illo, soluta magni magnam itaque?
-                            Quos blanditiis distinctio aspernatur obcaecati exercitationem recusandae voluptatum, hic saepe veritatis aperiam possimus unde inventore laudantium, voluptate repellendus at assumenda quas cumque? Laboriosam nulla quod id dolore cupiditate alias eos?
-                            Temporibus quisquam explicabo incidunt illo doloribus porro officiis, provident in qui repellendus aperiam ut sit, repellat commodi modi ipsum quibusdam ducimus impedit. Laudantium, maxime consequatur! Atque vel adipisci molestias ipsa.
-                            Repudiandae nostrum ab necessitatibus suscipit perspiciatis laudantium ratione placeat sed ea cumque consectetur, nisi architecto accusantium, rem vel nobis mollitia. Vitae quod optio tempore magnam aliquam excepturi ipsam aspernatur corrupti.
+                            {course?.description}
                         </Paragraph>
                     </div>
                 </div>
