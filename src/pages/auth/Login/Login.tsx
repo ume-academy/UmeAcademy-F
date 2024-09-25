@@ -37,8 +37,6 @@ const Login = () => {
         authLogin(data);
     }
 
-    // console.log(state.account)
-
     return (
         <>
             <div className={`${styles['wrapper']} flex justify-center items-center min-h-screen`}>
@@ -48,6 +46,10 @@ const Login = () => {
                             <div className="heading font-bold text-3xl">
                                 ĐĂNG NHẬP
                             </div>
+
+                            {/* <div className="">
+                                Xin chào, {state.account.email}
+                            </div> */}
 
                             <div className="text-center space-y-4">
                                 <p>

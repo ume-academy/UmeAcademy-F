@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Tauth } from '../../../interface/Tauth';
 import styles from './Register.module.scss';
 
+
 // images
 import { bannerRegister, google } from '../../../contants/client';
 //icon

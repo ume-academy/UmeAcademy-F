@@ -30,12 +30,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     // ! REGISTER
     const authRegister = async (account: Tauth) => {
         try {
-            const { data, status } = await instance.post(`auth/register`, account);
-
+            const { data, status } = await instance.post(`auth/register`, { fullname: account.fullname, email: account.email, password: account.password });
+          
             if (status === 201) {
                 message.success('Đăng ký thành công!')
 
                 nav('/login')
+
             } else {
                 message.error('Đăng ký thất bại!')
             }
@@ -50,10 +51,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const authLogin = async (account: Tauth) => {
         try {
             const { data, status } = await instance.post(`auth/login`, account);
-
-            // console.log(data);
-
-            // const { email, fullname, token } = data.data;
 
             dispatch({
                 type: 'AUTH_LOGIN',
@@ -77,6 +74,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             console.log(error)
 
             message.error('Có lỗi xảy ra, vui lòng thử lại sau!');
+
         }
     }
 
