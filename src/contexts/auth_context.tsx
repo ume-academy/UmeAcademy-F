@@ -1,6 +1,6 @@
 import React, { createContext, useReducer } from "react";
 import authReducer from "../reducers/auth_reducer";
-import { Tauth } from "../interface/auth";
+import { Tauth } from "../interface/Tauth";
 import instance from "../api";
 import { message } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -32,17 +32,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         try {
             const { data, status } = await instance.post(`auth/register`, account);
 
-            // console.log(data);
-
-            // const { email, fullname } = data.data;
-
-            // dispatch({
-            //     type: 'AUTH_REGISTER',
-            //     payload: { email, fullname }
-            // });
-
             if (status === 201) {
                 message.success('Đăng ký thành công!')
+
+                nav('/login')
             } else {
                 message.error('Đăng ký thất bại!')
             }
@@ -58,7 +51,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         try {
             const { data, status } = await instance.post(`auth/login`, account);
 
-            console.log(data);
+            // console.log(data);
 
             // const { email, fullname, token } = data.data;
 
@@ -74,8 +67,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 nav('/');
 
                 // lưu thông tin user vào localstorage
-                localStorage.setItem('user', account.email);
-
                 // token
                 localStorage.setItem('token', data.token);
 
@@ -85,14 +76,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         } catch (error) {
             console.log(error)
 
-            // message.error('Có lỗi xảy ra, vui lòng thử lại sau!');
+            message.error('Có lỗi xảy ra, vui lòng thử lại sau!');
         }
     }
 
     // ! LOGOUT
     const authLogout = () => {
         localStorage.removeItem('token');
-        localStorage.removeItem('user');
 
         nav('/');
 
