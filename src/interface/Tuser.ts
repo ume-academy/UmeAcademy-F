@@ -1,7 +1,9 @@
-export interface Tuser {
-    id: number
-    email: string
-    fullname: string
-    password: string
-    role: boolean
+export interface Tuser{
+    id: number,
+    fullname: string,
+    email:string,
+    password:string,
+    created_at?: Date
+    role?: number,
+    status?:number
 }

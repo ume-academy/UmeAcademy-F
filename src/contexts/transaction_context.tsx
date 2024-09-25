@@ -1,29 +1,47 @@
 import { createContext, Dispatch, useEffect, useReducer, ReactNode } from "react";
-import { Ttransaction } from "../interface/Ttransaction";
-import { Action, transaction_reducer } from "../reducers/transaction_reducer";
+import { Action, State, transaction_reducer } from "../reducers/transaction_reducer";
 import instance from "../api";
 import { message } from "antd";
 
 export interface Transaction_Context_Type {
-    state: { transactions: Ttransaction[] }
+    state: State
     dispatch: Dispatch<Action>
     getTransactionById: (id: number) => void
     updateTransactionStatus: (id: number, status: number) => void
+    getAllTransaction: (page: number) => void
 }
-
+const initialState: State = {
+    transactions: [],
+    transaction: undefined,
+    pagination: {
+        currentPage: 1,
+        pageSize: 10,
+        total: 0
+    }
+};
 export const Transaction_Context = createContext<Transaction_Context_Type | undefined>(undefined);
 
 export const TransactionProvider = ({ children }: { children: ReactNode }) => {
-    const [state, dispatch] = useReducer(transaction_reducer, { transactions: [] });
+    const [state, dispatch] = useReducer(transaction_reducer, initialState);
 
     useEffect(() => {
         getAllTransaction();
     }, []);
 
-    const getAllTransaction = async () => {
+    const getAllTransaction = async (page: number) => {
         try {
-            const res = await instance.get('transactions');
-            dispatch({ type: "SET_TRANSACTIONS", payload: res.data.data });
+            const res = await instance.get(`transactions?page=${page}`);
+            const { data, meta } = res.data
+            dispatch({
+                type: "SET_TRANSACTIONS", payload: {
+                    transactions: data,
+                    meta: {
+                        current_page: meta.current_page,
+                        per_page: meta.per_page,
+                        total: meta.total
+                    }
+                }
+            });
         } catch (error) {
             console.log(error);
         }
@@ -31,7 +49,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
     const getTransactionById = async (id: number) => {
         try {
             const res = await instance.get(`/users/${id}/transaction-histories`);
-            dispatch({ type: "SET_TRANSACTIONS", payload: res.data.data });
+            dispatch({ type: "GET_TRANSACTION_BY_ID", payload: res.data });
         } catch (error) {
             console.log(error);
         }
@@ -52,7 +70,7 @@ export const TransactionProvider = ({ children }: { children: ReactNode }) => {
 
 
     return (
-        <Transaction_Context.Provider value={{ state, dispatch, getTransactionById, updateTransactionStatus }}>
+        <Transaction_Context.Provider value={{ state, dispatch, getAllTransaction, getTransactionById, updateTransactionStatus }}>
             {children}
         </Transaction_Context.Provider>
     );

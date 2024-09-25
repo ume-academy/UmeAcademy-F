@@ -1,19 +1,27 @@
-import { Empty, Select, Table, TableColumnsType } from 'antd';
+import { Empty, Pagination, Select, Table, TableColumnsType } from 'antd';
 import styles from './histories_transaction.module.scss';
 import { Ttransaction } from '../../../interface/Ttransaction';
 import { useContext } from 'react';
 import { Transaction_Context, Transaction_Context_Type } from '../../../contexts/transaction_context';
 
 const Histories_Transaction = () => {
-  const { state, updateTransactionStatus } = useContext(Transaction_Context) as Transaction_Context_Type;
+  const { state, updateTransactionStatus, getAllTransaction } = useContext(Transaction_Context) as Transaction_Context_Type;
   const { Option } = Select;
-
-  const columnWidth = 150;
+  const { pagination, transactions } = state
+  const handlePageChange = (page: number) => {
+    getAllTransaction(page)
+  }
+  const dataTable = transactions.map((item: Ttransaction, index: number) => (
+    {
+      ...item,
+      key: index + 1
+    }
+  ))
   const columns: TableColumnsType<Ttransaction> = [
     {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
+      title: "STT",
+      dataIndex: "key",
+      key: "key",
       ellipsis: true,
       align: "center",
       width: 50
@@ -24,26 +32,29 @@ const Histories_Transaction = () => {
       key: "course",
       ellipsis: true,
       align: "center",
-      width: columnWidth,
+      width: 160,
       render: (course: { title: string }) => {
         return course.title
       }
     },
     {
-      title: "Mã đơn hàng",
-      dataIndex: "code",
-      key: "code",
+      title: "Giảng viên",
+      dataIndex: "course",
+      key: "course",
       ellipsis: true,
+      render: (course: { teacher: string }) => {
+        return course.teacher
+      },
       align: "center",
-      width: columnWidth
+      width: 150
     },
     {
       title: "Học viên",
-      dataIndex: "user_id",
-      key: "user_id",
+      dataIndex: "student",
+      key: "student",
       ellipsis: true,
       align: "center",
-      width: columnWidth
+      width: 150
     },
     {
       title: "Tổng tiền",
@@ -51,7 +62,7 @@ const Histories_Transaction = () => {
       key: "total_price",
       ellipsis: true,
       align: "center",
-      width: columnWidth
+      width: 110
     },
     {
       title: "Phương thức",
@@ -66,7 +77,7 @@ const Histories_Transaction = () => {
         return methods[payment_method_id];
       },
       align: "center",
-      width: columnWidth
+      width: 130
     },
 
     {
@@ -79,7 +90,7 @@ const Histories_Transaction = () => {
       },
       ellipsis: true,
       align: "center",
-      width: columnWidth
+      width: 130
     },
     {
       title: "Trạng thái",
@@ -97,7 +108,7 @@ const Histories_Transaction = () => {
           <Select
             value={status}
             onChange={handleChange}
-            style={{ width: 150 }}
+            style={{ width: 140 }}
           >
             <Option value={0}>Đã hủy</Option>
             <Option value={1}>Chờ thanh toán</Option>
@@ -106,7 +117,7 @@ const Histories_Transaction = () => {
         )
       },
       align: "center",
-      width: columnWidth
+      width: 150
     },
   ];
 
@@ -116,16 +127,24 @@ const Histories_Transaction = () => {
         <div className={`${styles['heading']}  text-2xl font-bold mb-6`}>
           <h3>Lịch sử giao dịch</h3>
         </div>
-        {state.transactions.length > 0 ? (
-          <Table
-            columns={columns}
-            dataSource={state.transactions}
-            rowKey="id"
-            pagination={{
-              pageSize: 8,
-              total: state.transactions.length,
-            }}
-          />) :
+        {transactions.length > 0 ? (
+          <div>
+            <Table
+              columns={columns}
+              dataSource={dataTable}
+              rowKey="id"
+              pagination={false}
+            />
+            <div className="mt-5">
+              <Pagination
+                align='end'
+                current={pagination.currentPage} // trang hiện tại
+                total={pagination.total} // tổng số bản ghi
+                pageSize={pagination.pageSize} // Số bản ghi trên mỗi trang
+                onChange={handlePageChange}
+              />
+            </div>
+          </div>) :
           (<Empty description="Không có lịch sử giao dịch nào" />)
         }
       </div>
