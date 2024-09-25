@@ -1,163 +1,148 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Image, Table, TableColumnsType, TableProps, Tag } from 'antd';
-import React from 'react'
+import { Button, Table, TableColumnsType, Tag, Space, Typography, Popconfirm, Pagination } from 'antd';
+import { useContext } from 'react';
+import { UserContext, UserContextType } from '../../../../contexts/user_context';
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import styles from './list_user.module.scss';
+import { Tuser } from '../../../../interface/Tuser';
 
-
-type OnChange = NonNullable<TableProps<DataType>['onChange']>;
-type Filters = Parameters<OnChange>[1];
-
-
-interface DataType {
-    key: string;
-    id: number;
-    name: string;
-    email: string;
-    permission: number;
-    createdAt: string;
-}
-
-// nút chọn select
-const handleChangeSelect = (value: number | string) => {
-    console.log(`selected ${value}`);
-  };
-
-// Data mẫu
-const data: DataType[] = [
-    {
-        key: '1',
-        id: 1,
-
-        name: 'Nguyễn Văn JavaScript',
-        email: 'nguyentrungduc2807@gmail.com',
-        permission: 0,
-        createdAt: '10/11/1000', // fix cứng
-    },
-    {
-        key: '2',
-        id: 2,
-
-        name: 'Nguyễn Văn Php',
-        email: 'nguyentrungduc2807@gmail.com',
-        permission: 1,
-        createdAt: '10/11/1000', // fix cứng
-    },
-    {
-        key: '3',
-        id: 3,
-
-        name: 'Nguyễn Văn Pythỏn',
-        email: 'nguyentrungduc2807@gmail.com',
-        permission: 2,
-        createdAt: '10/11/1000', // fix cứng
-    },
-    {
-        key: '4',
-        id: 4,
-
-        name: 'Nguyễn Văn C+-',
-        email: 'nguyentrungduc2807@gmail.com',
-        permission: 3,
-        createdAt: '10/11/1000', // fix cứng
-    }
-];
+const { Title } = Typography;
 
 const List_Users = () => {
-
-    const handleChange: OnChange = (pagination) => {
-        console.log('Various parameters', pagination);
-    };
-
-    const columns: TableColumnsType<DataType> = [
-      {
-        title: "ID",
-        dataIndex: "id",
-        key: "id",
-        ellipsis: true,
-        align: "center",
-        width: 60
-      },
-      {
-        title: <div className="text-center">Họ và tên</div>,
-        dataIndex: "name",
-        key: "name",
-        ellipsis: true,
-        align: "center",
-      },
-      {
-        title: <div className="text-center">Email</div>,
-        dataIndex: "email",
-        key: "email",
-        ellipsis: true,
-        align: "center",
-      },
-      {
-        title: <div className="text-center">Quyền</div>,
-        dataIndex: "permission",
-        key: "permission",
-        render: (_: any, item) => (
-            <div className="text-center">
-                {
-                    item.permission === 0 ? (
-                        <Tag color={'green'}>Admin</Tag>
-                    ) : item.permission === 1 ? (
-                        <Tag color={'blue'}>Khách hàng</Tag>
-                    ) :  item.permission === 2 ?(
-                        <Tag color={'orange'}>QTV</Tag>
-                    ) : (
-                        <Tag color={'red'}>Giảng viên</Tag>
-                    )
-                }
-            </div>
-        ),
-        ellipsis: true,
-        align: "center",
-        width:100
-      },
-      {
-        title: "Ngày tạo",
-        dataIndex: "createdAt",
-        key: "createdAt",
-        ellipsis: true,
-        align: "center",
-      },
-      {
-        title: <div className="text-center">Hành động</div>,
-        dataIndex: "status",
-        render: (_: any, item) => (
-          <div className={`${styles['btnGroup']}`}>
-              <div className="">
-                  <Link to={'/admin/update_user/2'} className='m-0 p-0'>
-                      <EditOutlined className='flex-1 text-xl' />
-                  </Link>
-              </div>
-
-              <div className="">
-                  <DeleteOutlined className='flex-1 text-xl text-red-500' onClick={() => alert(`Xóa thành công khóa học ${item.name}!`)} />
-              </div>
-          </div>
-      ),
-        key: "status",
-      },
+    const { state, removeUser, getAllUser } = useContext(UserContext) as UserContextType;
+    const { users, pagination } = state
+    const handlePageChange = (page: number) => {
+        getAllUser(page)
+    }
+    const dataTable = users?.map((item: Tuser, index: number) => (
+        {
+            key: index + 1,
+            ...item
+        }
+    ));
+    const columns: TableColumnsType<Tuser> = [
+        {
+            title: "STT",
+            dataIndex: "key",
+            key: "key",
+            ellipsis: true,
+            align: "center",
+            width: 60
+        },
+        {
+            title: <div>Họ và tên</div>,
+            dataIndex: "fullname",
+            key: "fullname",
+            ellipsis: true,
+            align: "center",
+        },
+        {
+            title: <div>Quyền</div>,
+            dataIndex: "role",
+            key: "role",
+            render: (role: number) => (
+                <Tag color={role === 0 ? 'purple' : 'blue'}>
+                    {role === 0 ? 'Admin' : 'Người dùng'}
+                </Tag>
+            ),
+            ellipsis: true,
+            align: "center",
+            width: 130
+        },
+        {
+            title: <div>Email</div>,
+            dataIndex: "email",
+            key: "email",
+            ellipsis: true,
+            align: "center",
+        },
+        {
+            title: "Ngày tạo",
+            dataIndex: "created_at",
+            key: "created_at",
+            render: (date) => {
+                const formattedDate = new Date(date).toLocaleDateString('vi-VN');
+                return formattedDate;
+            },
+            ellipsis: true,
+            align: "center",
+            width: 120
+        },
+        {
+            title: "Trạng thái",
+            dataIndex: "status",
+            key: "status",
+            render: (status: number) => (
+                <Tag color={status === 0 ? 'red' : 'green'}>
+                    {status === 0 ? 'Chưa kích hoạt' : 'Đã kích hoạt'}
+                </Tag>
+            ),
+            ellipsis: true,
+            align: "center",
+            width: 150
+        },
+        {
+            title: <div>Hành động</div>,
+            key: "actions",
+            align: "center",
+            width: 110,
+            render: (record) => (
+                <div className={`${styles['btnGroup']}`}>
+                    <div>
+                        <Link to={`/admin/update_user/${record.id}`}>
+                            <EditOutlined className='flex-1 text-xl' />
+                        </Link>
+                    </div>
+                    <div>
+                        <Popconfirm
+                            placement="left"
+                            title={`Xóa bản ghi`}
+                            description={<div>Bạn có muốn xóa bản ghi không?</div>}
+                            okText={'Xóa'}
+                            onConfirm={() => removeUser(record.id)}
+                            cancelText="Hủy"
+                        >
+                            <DeleteOutlined className='flex-1 text-xl text-red-500' />
+                        </Popconfirm>
+                    </div>
+                </div>
+            ),
+        },
     ];
+
     return (
         <>
-            <div className={`${styles['heading']} text-2xl font-bold mb-6`}>
-                <h3>Danh sách người dùng</h3>
+            <div className="heading mb-6 flex justify-between items-center">
+                <Title level={3} className='font-semibold text-xl text-[#C67D39]'>
+                    Danh sách người dùng
+                </Title>
+                <Button className='bg-[#C67D39] text-white'>
+                    <Link to={'/admin/create_user'}>
+                        <Space>
+                            Thêm mới
+                            <PlusOutlined />
+                        </Space>
+                    </Link>
+                </Button>
             </div>
 
             <Table
                 columns={columns}
-                dataSource={data}
-                onChange={handleChange}
-                pagination={{
-                    pageSize: 5, //Số lượng bản ghi mỗi trang
-                    total: data.length, // Tổng số bản ghi
-                }}
+                dataSource={dataTable}
+                rowKey={'id'}
+                pagination={false}
             />
+            <div className="mt-5">
+                <Pagination
+                    align='end'
+                    current={pagination.currentPage} // trang hiện tại
+                    total={pagination.total} // tổng số bản ghi
+                    pageSize={pagination.pageSize} // Số bản ghi trên mỗi trang
+                    onChange={handlePageChange}
+                />
+            </div>
         </>
-    )
-}
+    );
+};
 
-export default List_Users
+export default List_Users;

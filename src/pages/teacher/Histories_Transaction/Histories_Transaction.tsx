@@ -11,7 +11,6 @@ const Histories_Transaction = () => {
         getTransactionById(2);
     }, [getTransactionById]);
 
-    const columnWidth = 150;
     const columns: TableColumnsType<Ttransaction> = [
         {
             title: "ID",
@@ -27,18 +26,18 @@ const Histories_Transaction = () => {
             key: "course",
             ellipsis: true,
             align: "center",
-            width: columnWidth,
+            width: 150,
             render: (course: { title: string }) => {
                 return course.title
             }
         },
         {
             title: "Học viên",
-            dataIndex: "user_id",
-            key: "user_id",
+            dataIndex: "student",
+            key: "student",
             ellipsis: true,
             align: "center",
-            width: columnWidth
+            width: 140
         },
         {
             title: "Tổng tiền",
@@ -46,7 +45,7 @@ const Histories_Transaction = () => {
             key: "total_price",
             ellipsis: true,
             align: "center",
-            width: columnWidth
+            width: 130
         },
         {
             title: "Phương thức",
@@ -56,12 +55,11 @@ const Histories_Transaction = () => {
                 const methods: { [key: number]: string } = {
                     1: "VNPay",
                     2: "Credit Card",
-                    3: "Nợ",
                 };
                 return methods[payment_method_id];
             },
             align: "center",
-            width: columnWidth
+            width: 100
         },
         {
             title: "Ngày thanh toán",
@@ -73,7 +71,7 @@ const Histories_Transaction = () => {
             },
             ellipsis: true,
             align: "center",
-            width: columnWidth
+            width: 100
         },
         {
             title: "Trạng thái",
@@ -97,7 +95,7 @@ const Histories_Transaction = () => {
                 );
             },
             align: "center",
-            width: columnWidth
+            width: 100
         },
     ];
 
