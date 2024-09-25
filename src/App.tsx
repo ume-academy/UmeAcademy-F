@@ -20,7 +20,7 @@ import Dashboard_Teacher from './pages/teacher/Dashboard/Dashboard';
 import List_Courses_Teacher from './pages/teacher/Courses/List_Course/List_Courses';
 import NotFound from './pages/client/NotFound/NotFound';
 import Purchased_Course from './pages/client/Purchased_Course/Purchased_Course';
-import Register from './pages/client/Register/Register';
+import Register from './pages/auth/Register/Register';
 import Search_Page from './pages/client/Search_Page/Search_Page';
 import Histories_Transaction_Teacher from './pages/teacher/Histories_Transaction/Histories_Transaction';
 import List_Categories from './pages/admin/Categories/List_Categories/List_Categories';

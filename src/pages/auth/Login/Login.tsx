@@ -2,12 +2,31 @@ import { Link } from 'react-router-dom';
 import styles from './login.module.scss';
 
 // images
-import { bannerLogin, googleLogo, lockIcon, userIcon } from '../../../contants/client';
+import { LockOutlined, MailOutlined } from '@ant-design/icons';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Form, Input } from 'antd';
+import { useContext } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { bannerLogin, googleLogo } from '../../../contants/client';
+import { AuthContext } from '../../../contexts/auth_context';
+import { Tauth } from '../../../interface/auth';
+import authValidation from '../../../validation/authValidation';
 
+const Login = () => {
 
-type Props = {}
+    const { state, dispatch, authLogin } = useContext(AuthContext)
+    const { control, handleSubmit, formState: { errors } } = useForm<Tauth>({
+        resolver: zodResolver(authValidation)
+    });
 
-const Login = (props: Props) => {
+    const onSubmit = (data: Tauth) => {
+        // console.log(data)
+
+        authLogin(data);
+    }
+
+    console.log(state.account)
+
     return (
         <>
             <div className={`${styles['wrapper']} flex justify-center items-center min-h-screen`}>
@@ -17,6 +36,10 @@ const Login = (props: Props) => {
                             <div className="heading font-bold text-3xl">
                                 ĐĂNG NHẬP
                             </div>
+
+                            {/* <div className="">
+                                Xin chào, {state.account.email}
+                            </div> */}
 
                             <div className="text-center space-y-4">
                                 <p>
@@ -28,23 +51,71 @@ const Login = (props: Props) => {
                             </div>
 
                             {/* Form inputs*/}
-                            <form className='space-y-4 px-15'>
+                            <Form onFinish={handleSubmit(onSubmit)} className='space-y-4 px-15'>
                                 <div className={styles['form']}>
-                                    <div className={styles['fromGroup']}>
-                                        <input type="text" placeholder='Tên đăng nhập' className='rounded-2xl' />
-                                        <img src={userIcon} alt="" />
+
+                                    {/* Email */}
+                                    <div className="">
+                                        <div className="relative">
+                                            <Form.Item className={`${styles['fromGroup']} m-0 p-0`} >
+                                                <Controller
+                                                    name='email'
+                                                    control={control}
+                                                    render={({ field }) => (
+                                                        <div >
+                                                            <Input
+                                                                placeholder="Địa chỉ Email"
+                                                                className="rounded-2xl pr-10"
+                                                                {...field}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                />
+                                            </Form.Item>
+
+                                            <MailOutlined className={`${styles['icon']} absolute left-4 top-1/2 transform -translate-y-1/2`} />
+                                        </div>
+
+                                        {/* Validate errors */}
+                                        <div className="text-red-500 m-0 p-0">
+                                            {errors.email && <p>{errors.email.message}</p>}
+                                        </div>
                                     </div>
 
-                                    <div className={styles['fromGroup']}>
-                                        <input type="password" placeholder='Mật khẩu' className='rounded-2xl' />
-                                        <img src={lockIcon} alt="" />
+                                    {/* Password */}
+                                    <div className="">
+                                        <div className="relative">
+                                            <Form.Item className={`${styles['fromGroup']} m-0 p-0`} >
+                                                <Controller
+                                                    name='password'
+                                                    control={control}
+                                                    render={({ field }) => (
+                                                        <div >
+                                                            <Input
+                                                                placeholder="Mật khẩu"
+                                                                className="rounded-2xl pr-10"
+                                                                type='password'
+                                                                {...field}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                />
+                                            </Form.Item>
+
+                                            <LockOutlined className={`${styles['icon']} absolute left-4 top-1/2 transform -translate-y-1/2`} />
+                                        </div>
+
+                                        {/* Validate errors */}
+                                        <div className="text-red-500 m-0 p-0">
+                                            {errors.password && <p>{errors.password.message}</p>}
+                                        </div>
                                     </div>
 
                                     <div className={styles['btnGroup']}>
                                         <button className='rounded-2xl'>Đăng nhập</button>
                                     </div>
                                 </div>
-                            </form>
+                            </Form>
 
                             <div className={styles['hr']}>
                                 <div className={styles['line']}>
