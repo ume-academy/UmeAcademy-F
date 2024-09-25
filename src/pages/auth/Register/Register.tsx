@@ -15,7 +15,7 @@ import authValidation from '../../../validation/authValidation';
 
 const Register = () => {
 
-    const { state, authRegister } = useContext(AuthContext)
+    const { authRegister } = useContext(AuthContext)
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm<Tauth>({
         resolver: zodResolver(authValidation)
