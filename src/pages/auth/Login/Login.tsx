@@ -9,14 +9,26 @@ import { useContext } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { bannerLogin, googleLogo } from '../../../contants/client';
 import { AuthContext } from '../../../contexts/auth_context';
-import { Tauth } from '../../../interface/auth';
-import authValidation from '../../../validation/authValidation';
+import { Tauth } from '../../../interface/Tauth';
+import auth_schema from '../../../validation/auth_schema';
+import { z } from 'zod';
 
 const Login = () => {
 
-    const { state, dispatch, authLogin } = useContext(AuthContext)
-    const { control, handleSubmit, formState: { errors } } = useForm<Tauth>({
-        resolver: zodResolver(authValidation)
+    const { authLogin } = useContext(AuthContext);
+
+    const loginValidation = z.object({
+        email: z.string({ message: 'Không được bỏ trống!' })
+            .max(64, { message: 'Email không được phép vượt quá 64 ký tự!' })
+            .email({ message: 'Email không hợp lệ' }),
+
+        password: z.string({ message: 'Không được bỏ trống!' })
+            .min(8, { message: 'Mật khẩu ít nhất phải có từ 8 ký tự trở lên!' })
+            .max(32, { message: 'Mật khẩu không được phép vượt quá 32 ký tự!' }),
+    })
+
+    const { control, handleSubmit, reset, formState: { errors } } = useForm<Tauth>({
+        resolver: zodResolver(loginValidation)
     });
 
     const onSubmit = (data: Tauth) => {
@@ -24,8 +36,6 @@ const Login = () => {
 
         authLogin(data);
     }
-
-    console.log(state.account)
 
     return (
         <>

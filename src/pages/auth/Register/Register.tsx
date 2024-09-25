@@ -1,24 +1,25 @@
-import { Link } from 'react-router-dom';
-import styles from './Register.module.scss';
 import { Form, Input } from 'antd';
 import { Controller, useForm } from 'react-hook-form';
-import { Tauth } from '../../../interface/auth';
+import { Link } from 'react-router-dom';
+import { Tauth } from '../../../interface/Tauth';
+import styles from './Register.module.scss';
+
 
 // images
 import { bannerRegister, google } from '../../../contants/client';
 //icon
 import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext } from 'react';
 import { AuthContext } from '../../../contexts/auth_context';
-import { zodResolver } from '@hookform/resolvers/zod';
-import authValidation from '../../../validation/authValidation';
+import auth_schema from '../../../validation/auth_schema';
 
 const Register = () => {
 
     const { authRegister } = useContext(AuthContext)
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm<Tauth>({
-        resolver: zodResolver(authValidation)
+        resolver: zodResolver(auth_schema)
     });
 
     const onSubmit = (data: Tauth) => {
@@ -127,6 +128,35 @@ const Register = () => {
                                         {/* Validate errors */}
                                         <div className="text-red-500 m-0 p-0">
                                             {errors.password && <p>{errors.password.message}</p>}
+                                        </div>
+                                    </div>
+
+                                    {/* Confirm password */}
+                                    <div className="">
+                                        <div className="relative">
+                                            <Form.Item className={`${styles['fromGroup']} m-0 p-0`} >
+                                                <Controller
+                                                    name='confirmPass'
+                                                    control={control}
+                                                    render={({ field }) => (
+                                                        <div >
+                                                            <Input
+                                                                placeholder="Xác nhận mật khẩu"
+                                                                className="rounded-2xl pr-10"
+                                                                type='password'
+                                                                {...field}
+                                                            />
+                                                        </div>
+                                                    )}
+                                                />
+                                            </Form.Item>
+
+                                            <LockOutlined className={`${styles['icon']} absolute left-4 top-1/2 transform -translate-y-1/2`} />
+                                        </div>
+
+                                        {/* Validate errors */}
+                                        <div className="text-red-500 m-0 p-0">
+                                            {errors.confirmPass && <p>{errors.confirmPass.message}</p>}
                                         </div>
                                     </div>
 

@@ -29,10 +29,7 @@ const Header = (props: Props) => {
 
 
     // Kiểm tra có thông tin user có được lưu vào local storage sau khi đăng nhập
-    const user = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-
-    console.log('user', user + 'token', token);
 
     // Chặn đóng lại dropdown khi click
     const handleMenuClick = (e: any) => {
@@ -141,7 +138,8 @@ const Header = (props: Props) => {
                             {/* khi có data đoạn này dùng để if kiểm tra là user hay guest*/}
 
                             {
-                                user && token ? (
+                                token ? (
+
                                     <div className="flex items-center space-x-4 ">
 
                                         {/* <===== Start teacher =====>*/}

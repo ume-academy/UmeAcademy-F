@@ -1,4 +1,4 @@
-import { Tauth } from "../interface/auth"
+import { Tauth } from "../interface/Tauth"
 
 type State = {
     account: Tauth
