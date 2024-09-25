@@ -27,11 +27,11 @@ const items: MenuItem[] = [
     getItem(<NavLink to={'/teacher/courses'}>Danh sách khóa học</NavLink>, '3'),
     getItem(<NavLink to={'/teacher/form_course_add'}>Thêm mới khóa học</NavLink>, '4'),
     getItem('Bài học của tôi', '5', <AppstoreOutlined />, [
-      getItem(<NavLink to={'/teacher/add_lesson'}>Thêm mới bài học</NavLink>, '5'),
+      getItem(<NavLink to={'/teacher/add_lesson'}>Thêm mới bài học</NavLink>, '6'),
 
     ]),
   ]),
-  getItem(<NavLink to={'/teacher/histories_transaction'}>Lịch sử thanh toán</NavLink>, '6', <HistoryOutlined />,),
+  getItem(<NavLink to={'/teacher/histories_transaction'}>Lịch sử thanh toán</NavLink>, '7', <HistoryOutlined />,),
   // getItem('User', 'sub1', <UserOutlined />, [
   //   getItem('Tom', '3'),
   //   getItem('Bill', '4'),

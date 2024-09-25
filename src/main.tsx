@@ -6,17 +6,25 @@ import { BrowserRouter } from 'react-router-dom'
 import LanguageProvider from './contexts/language_context.tsx'
 import Levelprovider from './contexts/level_context.tsx'
 import CourseProvider from './contexts/course_context.tsx'
+import { TransactionProvider } from './contexts/transaction_context.tsx'
+import CategoryProvider from './contexts/category_context.tsx'
+
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <CourseProvider>
-        <LanguageProvider>
-          <Levelprovider>
-            <App />
-          </Levelprovider>
-        </LanguageProvider>
-      </CourseProvider>
-    </BrowserRouter>
+      <CategoryProvider>
+        <CourseProvider>
+          <LanguageProvider>
+            <Levelprovider>
+              <TransactionProvider>
+                <App />
+              </TransactionProvider>
+             </Levelprovider>
+            </LanguageProvider>
+          </CourseProvider>
+        </CategoryProvider>
+      </BrowserRouter>
   </StrictMode>
 );
+
