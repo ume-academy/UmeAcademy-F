@@ -41,8 +41,8 @@ const List_Users = () => {
             dataIndex: "role",
             key: "role",
             render: (role: number) => (
-                <Tag color={role === 0 ? 'purple' : 'blue'}>
-                    {role === 0 ? 'Admin' : 'Người dùng'}
+                <Tag color={role === 1 ? 'purple' : 'blue'}>
+                    {role === 1 ? 'Admin' : 'Người dùng'}
                 </Tag>
             ),
             ellipsis: true,
