@@ -63,7 +63,7 @@ function App() {
 
           {/* <===== Teacher =====> */}
           <Route path='/admin/courses' element={<List_Courses_Admin />} />
-          <Route path='/admin/add_lesson' element={<Add_Lesson_Admin />} />
+          <Route path='/admin/courses/:id/add_lesson' element={<Add_Lesson_Admin />} />
           <Route path='/admin/form_course_add' element={<Form_Course_Admin />} />
           <Route path='/admin/form_course_edit/:id' element={<Form_Course_Admin />} />
 
