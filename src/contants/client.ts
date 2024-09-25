@@ -42,3 +42,6 @@ export const notFoundImg = './src/assets/images/client/NotFound/notfound.png';
 
 // Logo teacher
 export const logoTeacher = './src/assets/images/teacher/logo_teacher_white-removebg.png';
+
+// image Error
+export const logoImageError = './src/assets/images/imageError/imageError.png';

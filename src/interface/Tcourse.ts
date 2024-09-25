@@ -4,10 +4,10 @@ import { Tlevel } from "./Tlevel"
 import { Tuser } from "./Tuser"
 
 export interface Tcourse {
-    id: number
+    id?: number
     title: string
     description: string
-    thumbnail: null | UploadFile 
+    thumbnail: null | UploadFile
     old_price: number
     new_price: number
     category_id: number
@@ -18,4 +18,5 @@ export interface Tcourse {
     language_id: Tlanguage
     level_id: Tlevel
     status: number
+    _method?: string
 }

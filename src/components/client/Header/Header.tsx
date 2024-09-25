@@ -12,13 +12,13 @@ const Header = (props: Props) => {
   const shouldHideHeader = routeConfig.hiddenFullHeaderRoutes.includes(location.pathname);
 
 //   Cho các đường dẫn KHÔNG có :id
-  const shouldHideNav = routeConfig.hiddenNavRoutes.includes(location.pathname);
+  // const shouldHideNav = routeConfig.hiddenNavRoutes.includes(location.pathname);
 
 //   Cho các đường dẫn có :id
-//   const shouldHideNav = routeConfig.hiddenNavRoutes.some(route => {
-//     const regex = new RegExp(`^${route.replace(':id', '[^/]+')}$`);
-//     return regex.test(location.pathname);
-//   });
+  const shouldHideNav = routeConfig.hiddenNavRoutes.some(route => {
+    const regex = new RegExp(`^${route.replace(':id', '[^/]+')}$`);
+    return regex.test(location.pathname);
+  });
 
   const menuItems: any = [
     {

@@ -10,7 +10,7 @@ import styles from './list_courses.module.scss';
 const List_Courses = () => {
     const {state, removeCourse, getAllCourses} = useContext(CourseContext) as CourseContextType
     const {courses, pagination } = state
-    console.log('Courses in List_Courses:', state); 
+    console.log(courses)
 
     // Chuyển trang
     const handlePageChange = (page: number) => {
@@ -26,7 +26,7 @@ const List_Courses = () => {
     // Alert hủy xóa
     const cancel: PopconfirmProps['onCancel'] = (e) => {
       console.log(e);
-      message.error('Xóa thất bại');
+      message.error('Hủy hành động xóa!');
     };
   
     // funtion dùng để xóa 
@@ -36,10 +36,10 @@ const List_Courses = () => {
     }
 
     // Render data
-    const data: Tcourse[] = courses.data.map((item, index) => ({
+    const data: Tcourse[]  = courses.data.map((item, index) => ({
       key: index + 1,
       id: item.id,
-      title: item.title,
+      title: (<Link to={`/admin/courses/${item.id}/add_lesson`}>{item.title}</Link>),
       thumbnail: (
         <Image
           src={
@@ -73,7 +73,7 @@ const List_Courses = () => {
     const columns: TableColumnsType<Tcourse> = [
       {
         title: "ID",
-        dataIndex: "id",
+        dataIndex: "key",
         key: "index",
         ellipsis: true,
         align: "center",
@@ -134,7 +134,7 @@ const List_Courses = () => {
         render: (_: Tcourse, course) => (
           <div className={`${styles["btnGroup"]}`}>
             <div className="">
-              <Link to={"/admin/form_course_edit/2"} className="m-0 p-0">
+              <Link to={`/admin/form_course_edit/${course.id}`} className="m-0 p-0">
                 <EditOutlined className="flex-1 text-xl" />
               </Link>
             </div>

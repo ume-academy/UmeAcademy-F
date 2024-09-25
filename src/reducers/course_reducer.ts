@@ -16,6 +16,7 @@ export type Action =
     | {type: "GET_ALL_COURSES", payload: {data: Tcourse[], meta: {current_page: number, per_page: number, total: number}}}
     | {type: "DELETE_COURSE", payload: number}
     | {type: "CREATE_COURSE", payload: Tcourse}
+    | {type: "UPDATE_COURSE", payload: Tcourse}
 
 
 const course_reducer = (state: State, action: Action): State => {
@@ -46,6 +47,14 @@ const course_reducer = (state: State, action: Action): State => {
                     data: [...state.courses.data, action.payload]
                 }
             }
+
+            case "UPDATE_COURSE":
+                return {
+                    ...state,
+                    courses: {
+                        data: state.courses.data.map(item => item.id === action.payload.id ? { ...item, ...action.payload } : item)
+                    }
+                }
 
         default:
             return state

@@ -25,7 +25,7 @@ const initialState: State = {
   course: undefined,
   pagination: {
     currentPage: 1,
-    pageSize: 10,
+    pageSize: 12,
     total: 0,
   },
 };
@@ -38,7 +38,7 @@ const CourseProvider = ({ children }: { children: React.ReactNode }) => {
   // Lấy toàn bộ danh sách
   const getAllCourses = async (page: number) => {
     try {
-      const { data } = await instance.get(`/courses?page=${page}`);
+      const { data } = await instance.get(`/courses?page=${page}&per_page=${state.pagination.pageSize}`);
       dispatch({ type: "GET_ALL_COURSES", payload: data });
     } catch (error) {
       console.log(`Không tìm thấy trang ${page}`, error);
@@ -77,10 +77,33 @@ const CourseProvider = ({ children }: { children: React.ReactNode }) => {
 
   const handleForm = async (course: Tcourse) => {
     {
-      console.log(course.thumbnail?.originFileObj);
-      console.log(course)
+      // console.log(course.id);
+      // console.log(course)
       try {
         if (course.id) {
+          console.log(course)
+          const { data } = await instance.post(`/courses/${course.id}`, {
+            _method: course._method,
+            id: course.id,
+            title: course.title,
+            description: course.description,
+            thumbnail: course.thumbnail?.originFileObj,
+            old_price: course.old_price,
+            category_id: course.category_id,
+            user_id: course.user_id,
+            language_id: course.language_id,
+            level_id: course.level_id,
+            status: course.status
+          }, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+          });
+          dispatch({ type: "UPDATE_COURSE", payload: data });
+          alert("Cập nhật thành công!");
+          await getAllCourses(state.pagination.currentPage)
+          nav("/admin/courses");
+
         } else {
           const { data } = await instance.post("/courses", {
             title: course.title,
@@ -104,6 +127,7 @@ const CourseProvider = ({ children }: { children: React.ReactNode }) => {
         }
       } catch (error) {
         console.log("Không thể thêm", error);
+        alert("Thất bại!!!")
       }
     }
   };

@@ -1,11 +1,14 @@
 import { CloudUploadOutlined } from '@ant-design/icons';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Image, Input, TreeSelect, Upload } from 'antd';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useParams } from 'react-router-dom';
+import instance from '../../../../api';
 import { CourseContext, CourseContextType } from '../../../../contexts/course_context';
 import { LevelContext, LevelContextType } from '../../../../contexts/level_context';
 import { Tcourse } from '../../../../interface/Tcourse';
+import course_schema from '../../../../validation/course_schema';
 import { LanguageContext, LanguageContextType } from './../../../../contexts/language_context';
 import styles from './form_course.module.scss';
 
@@ -15,21 +18,58 @@ const Form_Course_Admin = () => {
     const {handleForm} = useContext(CourseContext) as CourseContextType //Context language
     const { TreeNode } = TreeSelect; 
     const {id} = useParams() //lấy params từ trên url
-
-    const {register, handleSubmit, control, reset, formState: {errors}} = useForm<Tcourse>({
+    const {handleSubmit, control, reset, formState: {errors}} = useForm<Tcourse>({
+        resolver: zodResolver(course_schema),
         defaultValues: {
-          thumbnail: null, // Khởi tạo giá trị mặc định của fileList thuộc upload file antd là mảng rỗng 
+        _method: "PUT",
+        //   thumbnail: null, // Khởi tạo giá trị mặc định của fileList thuộc upload file antd là mảng rỗng 
+          user_id: 1
         },
+        mode: 'onBlur'
     })
 
-    const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null) // set ảnh khi upload lên đưa vào preview
+    // set ảnh khi upload lên đưa vào preview
+    const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null) 
 
-    const onsubmit = (data: Tcourse) => {
-        handleForm(data)
+    // Lấy ra thông tin khóa học theo ID
+    useEffect(() => {
+        if(id){
+           (async () => {
+                const {data} = await instance.get(`/courses/${id}`)
+                console.log(data)
+                reset({
+                    title: data.data.title,
+                    description: data.data.description,
+                    level_id: data.data.information.level.id,
+                    language_id: data.data.information.language.id,
+                    old_price: data.data.old_price,
+                    status: data.data.status,
+                    category_id: 5,
+                    thumbnail: {
+                        uid: '-1', // UID tạm thời cho file
+                        name: 'thumbnail.jpg', // Tên file bất kỳ
+                        status: 'done', // Đánh dấu là hoàn tất upload
+                        url: data.data.thumbnail, // URL của ảnh từ API
+                    },
+                    teacher: data.data.teacher
+                })
+                setThumbnailPreview(data.data.thumbnail)
+            })()
+        }
+    }, [id, reset])
+
+    const onsubmit = async (data: Tcourse) => {
+        console.log(data._method)
+        try {
+            await handleForm({...data, id: Number(id)})
+        } catch (error) {
+            console.log("Không lấy được dữ liệu", error)
+        }
     }
 
     return (
         <form onSubmit={handleSubmit(onsubmit)} className={`${styles['container']} p-5`}>
+           
             <div className="flex justify-between items-center mb-10">
                 <h1 className={`${styles['title']}`}>{id ? "Cập nhật khóa học" : "Thêm mới khóa học"}</h1>
             </div>
@@ -47,6 +87,17 @@ const Form_Course_Admin = () => {
             </div>
             <div className="flex gap-10 mt-10">
                 <div className="w-1/2">
+                {id && <Controller 
+                            name="_method"
+                            control={ control }
+                            render={({ field }) => (
+                                <Input 
+                                type='hidden'
+                                className="h-[70px] border border-black rounded-[8px] text-[22px] " 
+                                {...field}  //field gán các thuộc tính cần thiết cho Input
+                            />
+                            )}
+                        /> }
                     <div className="flex flex-col gap-2 mb-5">
                         <label>Tên khóa học</label>
                         <Controller
@@ -54,11 +105,13 @@ const Form_Course_Admin = () => {
                             control={control}  // 'control' phải được khai báo từ useForm()
                             render={({ field }) => (
                             <Input 
+                                type='text'
                                 className="h-[70px] border border-black rounded-[8px] text-[22px]" 
                                 {...field}  //field gán các thuộc tính cần thiết cho Input
                             />
                             )}
                         />
+                        {errors.title && <p className='text-danger text-[14px]'>{errors.title.message}</p>}
                     </div>
                     <div>
                         <label>Upload ảnh</label>
@@ -70,22 +123,29 @@ const Form_Course_Admin = () => {
                                     <Upload.Dragger
                                         name="file"
                                         listType="picture"
-                                        fileList={field.value ? [field.value] : []}  // Nếu có tệp nào đã được chọn, nó sẽ hiển thị tệp đó trong danh sách. Nếu không, danh sách sẽ trống [].
+                                        fileList={field.value ? typeof field.value === 'string' 
+                                            ? [{ uid: '-1', name: 'thumbnail', status: 'done', url: field.value }] // Chuyển đổi URL string thành đối tượng UploadFile
+                                            : [field.value] 
+                                          : []}  // Nếu có tệp nào đã được chọn, nó sẽ hiển thị tệp đó trong danh sách. Nếu không, danh sách sẽ trống [].
                                         onChange={({ fileList }) => {
+                                            const file = fileList[0]; // Lấy tệp đầu tiên trong danh sách tệp mà người dùng đã upload.
+                                            field.onChange(file); // Sử dụng file.originFileObj nếu có, nếu không thì dùng file.
 
-                                            // Lấy file đã upload
-                                            const file = fileList[0]; //Lấy tệp đầu tiên trong danh sách tệp mà người dùng đã upload.
-                                            field.onChange(file);
+                                            // Kiểm tra định dạng tệp
+                                            const ACCEPTED_FILE_TYPES = ['.png', '.jpeg', '.jpg', '.gif'];
+                                            const extension = file.name.slice(file.name.lastIndexOf('.')).toLowerCase();
 
-                                            // Kiểm tra nếu file.originFileObj tồn tại
+                                            if (ACCEPTED_FILE_TYPES.includes(extension)) {
+                                            // Nếu định dạng tệp hợp lệ, hiển thị preview
                                             if (file && file.originFileObj) {
-                                                // Tạo preview URL cho file
-                                                // Sử dụng URL.createObjectURL để tạo một đường dẫn tạm thời cho tệp hình ảnh mà người dùng vừa chọn. Đường dẫn này sẽ được dùng để hiển thị ảnh.
                                                 const previewUrl = URL.createObjectURL(file.originFileObj); 
                                                 setThumbnailPreview(previewUrl); // Cập nhật trạng thái thumbnailPreview với URL mới
                                             } else {
-                                                // Nếu không có file, xóa preview tức là set bằng null
-                                                setThumbnailPreview(null);
+                                                setThumbnailPreview(null); // Nếu không có file hoặc file không hợp lệ, xóa preview
+                                            }
+                                            } else {
+                                            // Nếu định dạng tệp không hợp lệ, xóa preview
+                                            setThumbnailPreview(null);
                                             }
                                         }} 
                                         maxCount={1}
@@ -101,6 +161,7 @@ const Form_Course_Admin = () => {
                                     </Upload.Dragger>
                                 )}
                             />
+                        {errors.thumbnail && <p className='text-danger text-[14px]'>{errors.thumbnail.message}</p>}
                         </div>
                     </div>
                     {thumbnailPreview && (
@@ -125,6 +186,8 @@ const Form_Course_Admin = () => {
                                 <textarea className="border border-black rounded-[8px] h-[70px] p-2" {...field}/>
                             )}
                         />
+                        {errors.description && <p className='text-danger text-[14px]'>{errors.description.message}</p>}
+                        
                     </div>
                     <div className="flex flex-col gap-2 ">
                         <label>Trình độ</label>
@@ -145,7 +208,7 @@ const Form_Course_Admin = () => {
                                     }
                                 >
                                     {level.map((item) => (
-                                        <TreeNode key={item.id} value={item.id} title={item.name} {...register('level_id')}/>
+                                        <TreeNode key={item.id} value={item.id} title={item.name}/>
                                     ))}
                                 </TreeSelect>
                             )}
@@ -176,6 +239,7 @@ const Form_Course_Admin = () => {
                                 </TreeSelect>
                             )}
                         />
+                        {errors.language_id && <p className='text-danger text-[14px]'>{errors.language_id.message}</p>}
                         
                     </div>
                     <div className="flex flex-col gap-2 ">
@@ -184,9 +248,11 @@ const Form_Course_Admin = () => {
                             name='old_price'
                             control={ control }
                             render={({field}) => (
-                                <Input type='number' className="h-[70px] border border-black rounded-[8px]" {...field}/>
+                                <Input type='number' className="h-[70px] border border-black rounded-[8px]" 
+                                {...field} onChange={(e) => field.onChange(Number(e.target.value))}/>
                             )}
                         />
+                        {errors.old_price && <p className='text-danger text-[14px]'>{errors.old_price.message}</p>}
                     </div>
                     <div className="flex flex-col gap-2 ">
                         <label>Trạng thái</label>
@@ -197,11 +263,11 @@ const Form_Course_Admin = () => {
                                 <TreeSelect
                                     // showSearch
                                     className="w-1/2 h-[70px] border border-black rounded-[8px]"
-                                    defaultValue="Vui lòng chọn --"
+                                    // defaultValue="Vui lòng chọn --"
                                     style={{ width: '100%' }}
                                     dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                                    // value={field.value}
-                                    onChange={field.onChange}
+                                    value={field.value}
+                                    onChange={(value) => field.onChange(Number(value))}
                                     filterTreeNode={(input, treeNode) =>
                                         treeNode?.props?.title?.toLowerCase().includes(input.toLowerCase())
                                     }
@@ -211,6 +277,7 @@ const Form_Course_Admin = () => {
                                 </TreeSelect>
                             )}
                         />
+                        {errors.status && <p className='text-danger text-[14px]'>{errors.status.message}</p>}
                     </div>
                     <div className="flex flex-col gap-2 ">
                         <label>Danh Mục</label>
@@ -221,25 +288,33 @@ const Form_Course_Admin = () => {
                                 <TreeSelect
                                     showSearch
                                     className="w-1/2 h-[70px] border border-black rounded-[8px]"
-                                    // value={field.value}
+                                    value={field.value}
+                                    onChange={(value) => field.onChange(Number(value))}
                                     style={{ width: '100%' }} 
                                     dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                                 >
                                     <TreeNode value={9} title="Khóa học làm mẹ thiên hạ, bố thiên nhiên" />
                                     <TreeNode value={5} title="Khóa học giàu tình cảm" />
-                                    <TreeNode value={7} title="Khóa học làm súc vật" />
-
-
+                                    <TreeNode value={6} title="Khóa học làm súc vật" />
                                 </TreeSelect>
                             )}
                         />
-                        <input type="text" value={1} hidden {...register('user_id')} />
-                        <input type="text" value={5} hidden {...register('category_id')} />
-                        <input type="text" value={1} hidden {...register('status')} />
-
-
-
+                        {errors.category_id && <p className='text-danger text-[14px]'>{errors.category_id.message}</p>}
                     </div>
+                    <div className="flex flex-col gap-2 ">
+                        <label>user_id</label>
+                        <Controller 
+                            name='user_id'
+                            control={ control }
+                            render={({ field }) => (
+                                <Input 
+                                className="h-[70px] border border-black rounded-[8px] text-[22px] " 
+                                {...field}  //field gán các thuộc tính cần thiết cho Input
+                            />
+                            )}
+                        />
+                    </div>
+                        
                 </div>
             </div>
 
