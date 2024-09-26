@@ -23,14 +23,18 @@ const Header = () => {
 
   const [dropdownVisible, setDropdownVisible] = useState(false); // Trạng thái dropdown
   
-  //   Cho các đường dẫn KHÔNG có :id
-  const shouldHideNav = routeConfig.hiddenNavRoutes.includes(location.pathname);
   
   //   Cho các đường dẫn có :id
   const shouldHideNav = routeConfig.hiddenNavRoutes.some((route) => {
     const regex = new RegExp(`^${route.replace(":id", "[^/]+")}$`);
     return regex.test(location.pathname);
   });
+
+  const shouldHideFullHeader = routeConfig.hiddenFullHeaderRoutes.some((route) => {
+    const regex = new RegExp(`^${route.replace(":id", "[^/]+")}$`);
+    return regex.test(location.pathname);
+  });
+
   
   // Kiểm tra có thông tin user có được lưu vào local storage sau khi đăng nhập
     const token = localStorage.getItem('token');
@@ -41,19 +45,98 @@ const Header = () => {
         e.domEvent.preventDefault();
     };
 
-const Header = (props: Props) => {    
+    const menuItems: any = [
+      {
+          key: 'profile',
+          label: (
+              <div className="flex items-center">
+                  <Link to={`/admin`}>
+                      <Avatar icon={<UserOutlined />} />
+                  </Link>
+                  <div className="ml-3 ">
+                      <div className="flex mb-1">
+                          <Link className="inline font-semibold text-[16px] max-w-[180px] truncate" to={`/admin`}>
+                              Tuấn Thái
+                          </Link>
+                          <div className={`${styles['border_teacher']} text-[10px] flex items-center justify-center ml-3`}>
+                              <span
+                                  className={`${styles['backGR_teacher']} block font-bold rounded-[5px] px-1 py-0.5 text-[#0058FA] hover:text-[#0058FA]`}
+                              >
+                                  Teacher
+                              </span>
+                          </div>
+                      </div>
+                      <Link to={`/admin`} className="block text-[#999999] max-w-[180px] truncate hover:text-[#999999]">
+                          thaiquoctuan1308@gmail.com
+                      </Link>
+                  </div>
+              </div>
+          ),
+      },
+      {
+          type: 'divider',
+      },
+      {
+          key: 'courses',
+          label: (
+              <div className="flex items-center">
+                  <BookOutlined />
+                  <span className="ml-2">Bài giảng của tôi</span>
+              </div>
+          ),
+      },
+      {
+          key: 'myCourses',
+          label: (
+              <div className="flex items-center">
+                  <QuestionCircleOutlined />
+                  <span className="ml-2">Khóa học của tôi</span>
+              </div>
+          ),
+      },
+      {
+          key: 'history',
+          label: (
+              <div className="flex items-center">
+                  <HistoryOutlined />
+                  <span className="ml-2">Lịch sử thanh toán</span>
+              </div>
+          ),
+      },
+      {
+          type: 'divider',
+      },
+      {
+          key: 'logout',
+          label: (
+              <Popconfirm
+                  placement="left"
+                  title='Đăng xuất'
+                  description='Bạn có muốn đăng xuất tài khoản hiện tại không?'
+                  okText="Đăng xuất"
+                  onConfirm={authLogout}
+                  cancelText="Hủy"
+              >
+                  <div className="flex items-center">
+                      <LogoutOutlined />
+                      <span className="ml-2">Đăng xuất</span>
+                  </div>
+              </Popconfirm>
+          ),
+      },
+  ];
 
     return (
         <>
-            {!shouldHideHeader && (
+            {!shouldHideHeader && !shouldHideFullHeader && (
                 <header>
                     {/* navTop */}
                     <div className="container mx-auto">
                         <div className="flex justify-between items-center border-b border-b-black">
                             <div className="flex items-center min-w-[706px] justify-between">
-                                <div className="w-[84px] h-[70px] mr-[20px] bg-[#D9D9D9] flex items-center justify-center">
+                                <Link to={`/`} className="w-[84px] h-[70px] mr-[20px] bg-[#D9D9D9] flex items-center justify-center">
                                     <p className='text-black font-bold'>Logo</p>
-                                </div>
+                                </Link>
                                 <div className="flex items-center border-[1px]  rounded-full h-[46px] w-[498px] p-[12px]">
                                   <SearchOutlined
                                     style={{ fontSize: 30, paddingRight: 12, color: "#C5C5C5" }}

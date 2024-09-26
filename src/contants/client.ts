@@ -32,8 +32,8 @@ export const userIcon = './src/assets/images/client/LoginPage/icon_user.png';
 // Danh sách trang ẩn nav của header và ẩn footer
 export const routeConfig = {
     hiddenNavRoutes: ['/history_payment','/purchased_course', '/course/details/:id', '/:id/purchased_course'],
-    hiddenFooterRoutes: ['/history_payment','/purchased_course','/course/details/:id','/content_course'],
-    hiddenFullHeaderRoutes: ['/content_course']
+    hiddenFooterRoutes: ['/history_payment','/purchased_course','/course/details/:id','/content_course', '/courses/:id/lessons'],
+    hiddenFullHeaderRoutes: ['/content_course', '/courses/:id/lessons']
 };
 
 // 404 Not Found img

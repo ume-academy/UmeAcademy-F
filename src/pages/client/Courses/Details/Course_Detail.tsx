@@ -75,7 +75,7 @@ const Course_Detail = () => {
                     </div>
 
                     <div className={`${styles['action']} flex justify-center items-center`}>
-                        <Button className={`${styles['btn']} p-7 text-xl`}>Enroll Now</Button>
+                        <Link to={`/courses/${course?.id}/lessons`} className={`${styles['btn']} py-2 px-4 text-[24px] rounded-[8px] hover:opacity-90`}>Enroll Now</Link>
                     </div>
 
                     <div className={`${styles['rating']} flex justify-end items-top space-x-2`}>
