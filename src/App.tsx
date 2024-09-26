@@ -20,7 +20,7 @@ import Dashboard_Teacher from './pages/teacher/Dashboard/Dashboard';
 import List_Courses_Teacher from './pages/teacher/Courses/List_Course/List_Courses';
 import NotFound from './pages/client/NotFound/NotFound';
 import Purchased_Course from './pages/client/Purchased_Course/Purchased_Course';
-import Register from './pages/client/Register/Register';
+import Register from './pages/auth/Register/Register';
 import Search_Page from './pages/client/Search_Page/Search_Page';
 import Histories_Transaction_Teacher from './pages/teacher/Histories_Transaction/Histories_Transaction';
 import List_Categories from './pages/admin/Categories/List_Categories/List_Categories';
@@ -28,6 +28,9 @@ import Form_Course_Admin from './pages/admin/Teacher/Form_Course/Form_Course';
 import Add_Lesson_Teacher from './pages/teacher/Courses/Add_Lesson/Add_Lesson';
 import Add_Lesson_Admin from './pages/admin/Teacher/Add_Lesson/Add_Lesson';
 import Form_Course_Teacher from './pages/teacher/Courses/Form_Course/Form_Course';
+import List_Lesson from './pages/admin/Teacher/List_Lesson/List_Lesson';
+import Profile_User from './pages/client/Users/Profile_User/Profile_User';
+
 
 
 function App() {
@@ -81,6 +84,8 @@ function App() {
           <Route path='/history_payment' element={<Payment_History />} />
           <Route path='/course/details/:id' element={<Course_Detail />} />
           <Route path='/categories_course' element={<Categories_Course />} />
+          <Route path='/profile' element={<Profile_User />} />
+
         </Route>
 
         {/* <===== Role Teacher =====> */}

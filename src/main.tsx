@@ -8,23 +8,30 @@ import Levelprovider from './contexts/level_context.tsx'
 import CourseProvider from './contexts/course_context.tsx'
 import { TransactionProvider } from './contexts/transaction_context.tsx'
 import CategoryProvider from './contexts/category_context.tsx'
+import { UserProviver } from './contexts/user_context.tsx'
+import AuthProvider from './contexts/auth_context.tsx'
+import LessonProvider from './contexts/lesson_context.tsx'
 
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
-      <CategoryProvider>
-        <CourseProvider>
-          <LanguageProvider>
-            <Levelprovider>
-              <TransactionProvider>
-                <App />
-              </TransactionProvider>
-             </Levelprovider>
-            </LanguageProvider>
-          </CourseProvider>
-        </CategoryProvider>
-      </BrowserRouter>
-  </StrictMode>
-);
-
+      <AuthProvider>
+       <UserProviver>
+        <CategoryProvider>
+          <CourseProvider>
+            <LanguageProvider>
+              <Levelprovider>
+                <LessonProvider>
+                  <TransactionProvider>
+                       <App />
+                  </TransactionProvider>
+                  </LessonProvider>
+                 </Levelprovider>
+              </LanguageProvider>
+            </CourseProvider>
+          </CategoryProvider>
+        </UserProviver>
+      </AuthProvider>
+    </BrowserRouter>
+  </StrictMode>,
+)

@@ -1,14 +1,13 @@
-import { ArrowLeftOutlined, LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select } from 'antd';
-import { useParams } from 'react-router-dom';
-import styles from './form_submit_user.module.scss';
+import { LockOutlined, MailOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Form, Input } from 'antd';
 import { useContext, useEffect } from 'react';
 import { UserContext, UserContextType } from '../../../../contexts/user_context';
+import styles from './profile_user.module.scss';
 
-const Form_Submit_User = () => {
-    const { state, handleSubmitForm, getUserById } = useContext(UserContext) as UserContextType;
+const Profile_User = () => {
+    const { state, updateUserByClient, getUserById } = useContext(UserContext) as UserContextType;
     const [form] = Form.useForm();
-    const { id } = useParams();
+    const id = 2;
 
     useEffect(() => {
         if (id) {
@@ -26,20 +25,13 @@ const Form_Submit_User = () => {
     }, [id, state.users, form]);
 
     const onFinish = (data: any) => {
-        handleSubmitForm(id ? { ...data, id } : data);
-        console.log(data)
+        updateUserByClient({ ...data, id });
     };
 
     return (
         <>
-            <div className={`${styles['heading']} flex justify-between items-center mb-6`} style={{ flex: '0 0 20%' }}>
-                <h3 className='font-semibold text-xl'>{id ? 'Cập nhật người dùng' : 'Thêm mới người dùng'}</h3>
-                <div className="">
-                    <Button className='bg-[#C67D39] text-white' href='/admin/list_user'>
-                        <ArrowLeftOutlined />
-                        Quay lại
-                    </Button>
-                </div>
+            <div className={`${styles['heading']} flex justify-center items-center mb-6`} style={{ flex: '0 0 20%' }}>
+                <h3 className='font-semibold text-xl'>Thông tin hồ sơ</h3>
             </div>
 
             <div className={`${styles['content']} h-full py-16`}>
@@ -94,37 +86,9 @@ const Form_Submit_User = () => {
                                 visibilityToggle={true}
                             />
                         </Form.Item>
-
-                        <Form.Item
-                            className={`${styles['formGroup']} `}
-                            name='role'
-                        // rules={[
-                        //     { required: true, message: 'Không được bỏ trống!' },
-                        // ]}
-
-                        >
-                            <Select placeholder="Phân quyền tài khoản">
-                                <Select.Option value={1}>Admin</Select.Option>
-                                <Select.Option value={0}>Client</Select.Option>
-                            </Select>
-                        </Form.Item>
-
-                        <Form.Item
-                            className={`${styles['formGroup']} `}
-                            name='status'
-                        // rules={[
-                        //     { required: true, message: 'Không được bỏ trống!' },
-                        // ]}
-                        >
-                            <Select placeholder="Trạng thái">
-                                <Select.Option value={1}>Đã kích hoạt</Select.Option>
-                                <Select.Option value={0}>Chưa kích hoạt</Select.Option>
-                            </Select>
-                        </Form.Item>
-
                         <Form.Item>
                             <Button className='bg-[#C67D39] text-white p-6' htmlType='submit'>
-                                {id ? 'Cập nhật' : 'Thêm mới'}
+                                Cập nhật
                             </Button>
                         </Form.Item>
                     </div>
@@ -134,4 +98,4 @@ const Form_Submit_User = () => {
     );
 };
 
-export default Form_Submit_User;
+export default Profile_User;
