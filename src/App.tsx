@@ -80,7 +80,7 @@ function App() {
           <Route index element={<Home_Page />} />
           <Route path='/search' element={<Search_Page />} />
           <Route path='/content_course' element={<Content_Course_Page />} />
-          <Route path='/purchased_course' element={<Purchased_Course />} />
+          <Route path='/:id/purchased_course' element={<Purchased_Course />} />
           <Route path='/history_payment' element={<Payment_History />} />
           <Route path='/course/details/:id' element={<Course_Detail />} />
           <Route path='/categories_course' element={<Categories_Course />} />

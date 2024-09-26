@@ -1,34 +1,38 @@
+import { Link, useNavigate } from "react-router-dom";
+import { navigationCategory, routeConfig } from "../../../contants/client";
 import { BookOutlined, HistoryOutlined, LogoutOutlined, QuestionCircleOutlined, SearchOutlined, UserOutlined } from '@ant-design/icons'
 import { Avatar, Button, Dropdown, Menu, Popconfirm } from 'antd'
-import { Link } from 'react-router-dom'
-import { navigationCategory, routeConfig } from '../../../contants/client'
 import styles from './header.module.scss'
 import { useContext, useState } from 'react'
 import { AuthContext } from '../../../contexts/auth_context'
 
-interface Props {
 
-}
+const Header = () => {
+  const nav = useNavigate();
+  const { authLogout } = useContext(AuthContext);
+  
+  const [query, setQuery] = useState<string>(""); // state này để bắt value input tìm kiếm
 
-const Header = (props: Props) => {
+  const handleSearch = (query: string) => {
+    nav(`/search?query=${query}`);
+  };
 
-    const { authLogout } = useContext(AuthContext);
+  const shouldHideHeader = routeConfig.hiddenFullHeaderRoutes.includes(
+    location.pathname
+  );
 
-    const shouldHideHeader = routeConfig.hiddenFullHeaderRoutes.includes(location.pathname);
-
-    //   Cho các đường dẫn KHÔNG có :id
-    const shouldHideNav = routeConfig.hiddenNavRoutes.includes(location.pathname);
-
-    const [dropdownVisible, setDropdownVisible] = useState(false); // Trạng thái dropdown
-
-    //   Cho các đường dẫn có :id
-    //   const shouldHideNav = routeConfig.hiddenNavRoutes.some(route => {
-    //     const regex = new RegExp(`^${route.replace(':id', '[^/]+')}$`);
-    //     return regex.test(location.pathname);
-    //   });
-
-
-    // Kiểm tra có thông tin user có được lưu vào local storage sau khi đăng nhập
+  const [dropdownVisible, setDropdownVisible] = useState(false); // Trạng thái dropdown
+  
+  //   Cho các đường dẫn KHÔNG có :id
+  const shouldHideNav = routeConfig.hiddenNavRoutes.includes(location.pathname);
+  
+  //   Cho các đường dẫn có :id
+  const shouldHideNav = routeConfig.hiddenNavRoutes.some((route) => {
+    const regex = new RegExp(`^${route.replace(":id", "[^/]+")}$`);
+    return regex.test(location.pathname);
+  });
+  
+  // Kiểm tra có thông tin user có được lưu vào local storage sau khi đăng nhập
     const token = localStorage.getItem('token');
 
     // Chặn đóng lại dropdown khi click
@@ -37,86 +41,7 @@ const Header = (props: Props) => {
         e.domEvent.preventDefault();
     };
 
-    const menuItems: any = [
-        {
-            key: 'profile',
-            label: (
-                <div className="flex items-center">
-                    <Link to={`/admin`}>
-                        <Avatar icon={<UserOutlined />} />
-                    </Link>
-                    <div className="ml-3 ">
-                        <div className="flex mb-1">
-                            <Link className="inline font-semibold text-[16px] max-w-[180px] truncate" to={`/admin`}>
-                                Tuấn Thái
-                            </Link>
-                            <div className={`${styles['border_teacher']} text-[10px] flex items-center justify-center ml-3`}>
-                                <span
-                                    className={`${styles['backGR_teacher']} block font-bold rounded-[5px] px-1 py-0.5 text-[#0058FA] hover:text-[#0058FA]`}
-                                >
-                                    Teacher
-                                </span>
-                            </div>
-                        </div>
-                        <Link to={`/admin`} className="block text-[#999999] max-w-[180px] truncate hover:text-[#999999]">
-                            thaiquoctuan1308@gmail.com
-                        </Link>
-                    </div>
-                </div>
-            ),
-        },
-        {
-            type: 'divider',
-        },
-        {
-            key: 'courses',
-            label: (
-                <div className="flex items-center">
-                    <BookOutlined />
-                    <span className="ml-2">Bài giảng của tôi</span>
-                </div>
-            ),
-        },
-        {
-            key: 'myCourses',
-            label: (
-                <div className="flex items-center">
-                    <QuestionCircleOutlined />
-                    <span className="ml-2">Khóa học của tôi</span>
-                </div>
-            ),
-        },
-        {
-            key: 'history',
-            label: (
-                <div className="flex items-center">
-                    <HistoryOutlined />
-                    <span className="ml-2">Lịch sử thanh toán</span>
-                </div>
-            ),
-        },
-        {
-            type: 'divider',
-        },
-        {
-            key: 'logout',
-            label: (
-                <Popconfirm
-                    placement="left"
-                    title='Đăng xuất'
-                    description='Bạn có muốn đăng xuất tài khoản hiện tại không?'
-                    okText="Đăng xuất"
-                    onConfirm={authLogout}
-                    cancelText="Hủy"
-                >
-                    <div className="flex items-center">
-                        <LogoutOutlined />
-                        <span className="ml-2">Đăng xuất</span>
-                    </div>
-                </Popconfirm>
-            ),
-        },
-    ];
+const Header = (props: Props) => {    
 
     return (
         <>
@@ -130,9 +55,20 @@ const Header = (props: Props) => {
                                     <p className='text-black font-bold'>Logo</p>
                                 </div>
                                 <div className="flex items-center border-[1px]  rounded-full h-[46px] w-[498px] p-[12px]">
-                                    <SearchOutlined style={{ fontSize: 30, paddingRight: 12, color: '#C5C5C5' }} />
-                                    <input type="text" className='w-full h-[26px] focus:outline-none' placeholder='Lessons name' />
-                                </div>
+                                  <SearchOutlined
+                                    style={{ fontSize: 30, paddingRight: 12, color: "#C5C5C5" }}
+                                  />
+                                  <input
+                                    type="text"
+                                    value={query}
+                                    onChange={(e) => setQuery(e.target.value)}
+                                    onKeyDown={(e) => {
+                                      if (e.key === "Enter") handleSearch(query); // Gọi tìm kiếm khi nhấn Enter
+                                    }}
+                                    className="w-full h-[26px] focus:outline-none"
+                                    placeholder="Course name"
+                                  />
+                              </div>
                             </div>
 
                             {/* khi có data đoạn này dùng để if kiểm tra là user hay guest*/}
@@ -143,7 +79,12 @@ const Header = (props: Props) => {
                                     <div className="flex items-center space-x-4 ">
 
                                         {/* <===== Start teacher =====>*/}
-                                        <Link className='font-semibold hover:text-[#FB9C46]' to={``}>Khóa học của tôi</Link>
+                                        <Link
+                                          className="mr-[60px] hover:text-[#FB9C46]"
+                                          to={`/1/purchased_course`}
+                                        >
+                                          Khóa học của tôi
+                                        </Link>
                                         <Dropdown
                                             overlay={<Menu items={menuItems} onClick={handleMenuClick} />}
                                             trigger={['click']}
@@ -192,4 +133,4 @@ const Header = (props: Props) => {
     )
 }
 
-export default Header
+export default Header;

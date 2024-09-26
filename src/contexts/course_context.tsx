@@ -3,6 +3,7 @@ import instance from "../api";
 import course_reducer, { Action, State } from "../reducers/course_reducer";
 import { Tcourse } from "../interface/Tcourse";
 import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 export interface CourseContextType {
   state: {
@@ -18,6 +19,8 @@ export interface CourseContextType {
   getAllCourses: (page: number) => void; // khai báo type để phân trang
   removeCourse: (id: number) => void;
   handleForm: (course: Tcourse) => void;
+  searchCourse: (query: string ) => void
+  purchasedCourse: (id: number) => void
 }
 
 const initialState: State = {
@@ -35,6 +38,7 @@ export const CourseContext = createContext({} as CourseContextType);
 const CourseProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(course_reducer, initialState);
   const nav = useNavigate();
+
   // Lấy toàn bộ danh sách
   const getAllCourses = async (page: number) => {
     try {
@@ -75,6 +79,7 @@ const CourseProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  // thêm, sửa khóa học
   const handleForm = async (course: Tcourse) => {
     {
       // console.log(course.id);
@@ -82,7 +87,7 @@ const CourseProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         if (course.id) {
           console.log(course)
-          const { data } = await instance.post(`/courses/${course.id}`, {
+          const { data, status } = await instance.post(`/courses/${course.id}`, {
             _method: course._method,
             id: course.id,
             title: course.title,
@@ -100,12 +105,15 @@ const CourseProvider = ({ children }: { children: React.ReactNode }) => {
             }
           });
           dispatch({ type: "UPDATE_COURSE", payload: data });
-          alert("Cập nhật thành công!");
-          await getAllCourses(state.pagination.currentPage)
+          if(status === 200){
+            message.success(data.message || "Cập nhật thành công")
+          }else{
+            message.success(data.message || "Cập nhật thất bại")
+          }
           nav("/admin/courses");
 
         } else {
-          const { data } = await instance.post("/courses", {
+          const { data, status } = await instance.post("/courses", {
             title: course.title,
             description: course.description,
             thumbnail: course.thumbnail?.originFileObj,
@@ -121,10 +129,14 @@ const CourseProvider = ({ children }: { children: React.ReactNode }) => {
             }
           });
           dispatch({ type: "CREATE_COURSE", payload: data });
-          alert("Thêm thành công!");
-          await getAllCourses(state.pagination.currentPage)
-          nav("/admin/courses");
+          if(status === 200){
+            message.success(data.message || "Cập nhật thành công")
+          }else{
+            message.success(data.message || "Cập nhật thất bại")
+          }
         }
+        await getAllCourses(state.pagination.currentPage)
+        nav("/admin/courses");
       } catch (error) {
         console.log("Không thể thêm", error);
         alert("Thất bại!!!")
@@ -132,9 +144,29 @@ const CourseProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  // Tìm kiếm khóa học
+  const searchCourse = async (query: string) => {
+    try {
+      const {data} = await instance.get(`/courses/search?query=${query}`)
+      dispatch({type: "SEARCH_COURSE", payload: data.data})
+      // nav(`/search?query=${query}`)
+    } catch (error) {
+      console.log(`Lỗi khi tìm kiếm khóa học với từ khóa: ${query}`, error)
+    }
+  }
+
+  const purchasedCourse = async (id: number) => {
+    try {
+      const {data} = await instance.get(`users/${id}/course-attended`)
+      console.log(data)
+    } catch (error) {
+      console.log(`Lỗi khi tìm kiếm khóa học của tôi`, error)
+    }
+  }
+
   return (
     <CourseContext.Provider
-      value={{ state, dispatch, removeCourse, getAllCourses, handleForm }}
+      value={{ state, dispatch, removeCourse, getAllCourses, handleForm, searchCourse, purchasedCourse }}
     >
       {children}
     </CourseContext.Provider>

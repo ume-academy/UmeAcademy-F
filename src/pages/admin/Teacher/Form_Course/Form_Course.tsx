@@ -11,10 +11,13 @@ import { Tcourse } from '../../../../interface/Tcourse';
 import course_schema from '../../../../validation/course_schema';
 import { LanguageContext, LanguageContextType } from './../../../../contexts/language_context';
 import styles from './form_course.module.scss';
+import { CategoryContext, CategoryContextType } from '../../../../contexts/category_context';
 
 const Form_Course_Admin = () => {
     const {level} = useContext(LevelContext) as LevelContextType //Context level
     const {language} = useContext(LanguageContext) as LanguageContextType //Context language
+    const {state} = useContext(CategoryContext) as CategoryContextType
+    const {categories} = state
     const {handleForm} = useContext(CourseContext) as CourseContextType //Context language
     const { TreeNode } = TreeSelect; 
     const {id} = useParams() //lấy params từ trên url
@@ -40,11 +43,11 @@ const Form_Course_Admin = () => {
                 reset({
                     title: data.data.title,
                     description: data.data.description,
-                    level_id: data.data.information.level.id,
-                    language_id: data.data.information.language.id,
+                    level_id: data.data.information.level.id || undefined,
+                    language_id: data.data.information.language.id || undefined,
                     old_price: data.data.old_price,
                     status: data.data.status,
-                    category_id: 5,
+                    category_id: data.data.category.id,
                     thumbnail: {
                         uid: '-1', // UID tạm thời cho file
                         name: 'thumbnail.jpg', // Tên file bất kỳ
@@ -227,7 +230,7 @@ const Form_Course_Admin = () => {
                                     defaultValue="Vui lòng chọn --"
                                     style={{ width: '100%' }}
                                     dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
-                                    value={field.value}
+                                    value={field.value || null}
                                     onChange={field.onChange}
                                     filterTreeNode={(input, treeNode) => 
                                         treeNode?.props?.title?.toLowerCase().includes(input.toLowerCase())
@@ -288,14 +291,18 @@ const Form_Course_Admin = () => {
                                 <TreeSelect
                                     showSearch
                                     className="w-1/2 h-[70px] border border-black rounded-[8px]"
-                                    value={field.value}
-                                    onChange={(value) => field.onChange(Number(value))}
-                                    style={{ width: '100%' }} 
+                                    defaultValue="Vui lòng chọn --"
+                                    style={{ width: '100%' }}
                                     dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    filterTreeNode={(input, treeNode) =>
+                                        treeNode?.props?.title?.toLowerCase().includes(input.toLowerCase())
+                                    }
                                 >
-                                    <TreeNode value={9} title="Khóa học làm mẹ thiên hạ, bố thiên nhiên" />
-                                    <TreeNode value={5} title="Khóa học giàu tình cảm" />
-                                    <TreeNode value={6} title="Khóa học làm súc vật" />
+                                    {categories.data.map((item) => (
+                                        <TreeNode key={item.id} value={item.id} title={item.name}/>
+                                    ))}
                                 </TreeSelect>
                             )}
                         />

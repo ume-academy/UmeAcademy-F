@@ -15,23 +15,22 @@ import LessonProvider from './contexts/lesson_context.tsx'
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter>
       <AuthProvider>
+       <UserProviver>
         <CategoryProvider>
           <CourseProvider>
-            <LessonProvider>
-              <LanguageProvider>
-                <Levelprovider>
+            <LanguageProvider>
+              <Levelprovider>
+                <LessonProvider>
                   <TransactionProvider>
-                     <UserProviver>
                        <App />
-                     </UserProviver>
                   </TransactionProvider>
-                </Levelprovider>
+                  </LessonProvider>
+                 </Levelprovider>
               </LanguageProvider>
-            </LessonProvider>
-          </CourseProvider>
-        </CategoryProvider>
+            </CourseProvider>
+          </CategoryProvider>
+        </UserProviver>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>,

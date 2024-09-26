@@ -1,12 +1,11 @@
 import { ClockCircleOutlined, GlobalOutlined, UploadOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Rate, Typography } from 'antd';
+import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import instance from '../../../../api';
-import styles from './courseDetail.module.scss';
 import { Tcourse } from '../../../../interface/Tcourse';
-import { format } from 'date-fns';
-import { da } from 'date-fns/locale';
+import styles from './courseDetail.module.scss';
 const { Paragraph } = Typography;
 
 // type Props = {}
