@@ -31,7 +31,7 @@ const List_Courses = () => {
   
     // funtion dùng để xóa 
     const handleRemove = (course: Tcourse) => {
-        removeCourse(course.id)
+        removeCourse(Number(course.id))
         confirm()
     }
 
