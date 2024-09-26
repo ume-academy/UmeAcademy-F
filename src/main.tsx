@@ -14,7 +14,9 @@ import LessonProvider from './contexts/lesson_context.tsx'
 
 
 createRoot(document.getElementById("root")!).render(
+  
   <StrictMode>
+    <BrowserRouter>
       <AuthProvider>
        <UserProviver>
         <CategoryProvider>
