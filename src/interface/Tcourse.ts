@@ -5,6 +5,7 @@ import { Tuser } from "./Tuser"
 
 export interface Tcourse {
     id?: number
+    key?: number
     title: string
     description: string
     thumbnail: null | UploadFile

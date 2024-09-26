@@ -28,7 +28,9 @@ import Form_Course_Admin from './pages/admin/Teacher/Form_Course/Form_Course';
 import Add_Lesson_Teacher from './pages/teacher/Courses/Add_Lesson/Add_Lesson';
 import Add_Lesson_Admin from './pages/admin/Teacher/Add_Lesson/Add_Lesson';
 import Form_Course_Teacher from './pages/teacher/Courses/Form_Course/Form_Course';
+import List_Lesson from './pages/admin/Teacher/List_Lesson/List_Lesson';
 import Profile_User from './pages/client/Users/Profile_User/Profile_User';
+
 
 
 function App() {
